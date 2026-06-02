@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
- <meta name="google-site-verification" content="9HwAAR54rK2EAJE_sojZpUHUzlmde5wtFB0Jt7MSeoA" />
+  <meta name="google-site-verification" content="uB46TaLzMXy1a7bjVJM83JtyxlGbt83JO7XmX5PdkSM" />
   <meta name="description" content="البوابة الرسمية لنتائج معهد المطرية. استعلم عن نتيجتك برقم الجلوس بكل سهولة وسرعة.">
 <meta name="keywords" content="نتيجة معهد المطرية, معهد فني صناعي المطرية, نتيجة 2026, نتائج الطلاب">
 <meta name="author" content="المهندس أحمد ياسر محمد">
@@ -495,7 +495,7 @@ body {
         <h3 style="margin-top:0;">تسجيل دخول</h3>
         <p style="font-size:14px; color:#6b7280;">يرجى إدخال البريد الإلكتروني وتأكيد رقم الجلوس.</p>
         <input type="email" id="userEmail" placeholder="البريد الإلكتروني" required>
-        <input type="password" id="userPassword" placeholder="أدخل رقم جلوسك هنا" required>
+        <input type="password" id="userPassword" placeholder="أدخل كلمة السر (أو قم بإنشاء واحدة جديدة)" required>
         <button onclick="loginUser()">دخول للنظام</button>
         <p id="loginError" style="color: var(--danger); font-size: 13px; display: none; margin-top: 10px; font-weight: bold;"></p>
     </div>
@@ -536,11 +536,24 @@ body {
             <input type="email" id="profileEmail" class="profile-input email-input" placeholder="البريد الإلكتروني" onchange="saveProfileData()">
         </div>
         <div class="sidebar-menu">
-            <a href="#" class="menu-item"><span>🏛️</span> موقع المعهد الرسمي</a>
-            <a href="#" onclick="shareApp()" class="menu-item"><span>📤</span> مشاركة الموقع</a>
-            <a href="#" class="menu-item"><span>💬</span> تواصل مع مسؤول الموقع</a>
-            <a href="#" onclick="showAppInfo()" class="menu-item"><span>ℹ️</span> حول التطبيق</a>
-        </div>
+    <!-- 1. رابط الموقع الرسمي (حط لينك الموقع بدل الرابط اللي بين علامتين التنصيص) -->
+    <a href="https://www.facebook.com/share/g/17rds78RJN/" target="_blank" class="menu-item">
+        <span>🏛️</span> موقع المعهد الرسمي
+    </a>
+    
+    <a href="#" onclick="shareApp()" class="menu-item">
+        <span>📤</span> مشاركة التطبيق
+    </a>
+    
+    <!-- 2. رابط الواتساب (حط رقمك بعد wa.me/ مع كود الدولة 20 لمصر) -->
+    <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
+        <span>💬</span> تواصل مع مسؤول الموقع
+    </a>
+    
+    <a href="#" onclick="showAppInfo()" class="menu-item">
+        <span>ℹ️</span> حول التطبيق
+    </a>
+</div>
         <div class="sidebar-footer">
             <button id="sidebarThemeBtn" class="menu-item theme-toggle-btn" onclick="toggleTheme()" style="justify-content: flex-end; padding-right: 25px;">
                 <span id="themeText">الوضع الليلي</span> <span id="themeIcon" style="margin-left: 10px;">🌙</span>
@@ -548,13 +561,26 @@ body {
         </div>
     </div>
 
-    <div id="appInfoModal" class="modal-overlay" onclick="closeAppInfo(event)">
-        <div class="modal-card info-card">
-            <h2 style="color: var(--primary-blue); margin-top: 0;">ℹ️ حول بوابة النتائج</h2>
-            <p style="font-size: 15px; line-height: 1.8; text-align: justify;">هذه البوابة هي نظام استعلام ذكي مصمم لتوفير تجربة سلسة في الوصول إلى النتائج الدراسية.</p>
-            <div style="margin-top: 15px; font-weight: bold; color: var(--gold);">الإصدار: 2.0.1 | دفعة 2026</div>
-            <button onclick="closeAppInfo()" class="btn-start" style="width: 100%; margin-top: 15px; padding: 10px;">إغلاق</button>
+    <!-- نافذة "حول التطبيق" -->
+<div id="appInfoModal" class="modal-overlay" onclick="closeAppInfo(event)">
+    <div class="modal-card info-card">
+        <h2 style="color: var(--primary-blue); margin-top: 0;">ℹ️ حول بوابة النتائج</h2>
+        
+        <p style="font-size: 15px; line-height: 1.8; text-align: justify; direction: rtl;">
+            تم تصميم وتطوير هذه البوابة بكل فخر لخدمة صرح تعليمي عظيم، <strong>معهد فني صناعي المطرية</strong>. 
+            تهدف البوابة إلى توفير أسرع وأدق تجربة للطلاب للاستعلام عن نتائجهم بكل سهولة وخصوصية.
+            <br><br>
+            👨‍💻 <strong>تطوير وتصميم:</strong> المهندس أحمد ياسر محمد (خريج قسم تشغيل معادن).<br>
+            تم بناء هذا النظام باستخدام أحدث تقنيات الويب لضمان أمان بياناتكم وسرعة الوصول إليها.
+        </p>
+        
+        <div style="margin-top: 15px; padding: 10px; background: var(--row-alt); border-radius: 8px; font-weight: bold; color: var(--gold); border: 1px solid var(--border-color);">
+            الإصدار: 2.0.1 | دفعة 2026
         </div>
+        
+        <button onclick="closeAppInfo()" class="btn-start" style="width: 100%; margin-top: 15px; padding: 10px;">إغلاق الواجهة</button>
+    </div>
+</div>
     </div>
 
 <!-- خلفية شفافة عند فتح القائمة -->
@@ -1473,54 +1499,69 @@ function loginUser() {
     const passInput = document.getElementById('userPassword') ? document.getElementById('userPassword').value.trim() : '';
     const errorMsg = document.getElementById('loginError');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    
     if (!emailInput || !passInput) {
-        if(errorMsg) { errorMsg.innerText = "⚠️ يرجى إدخال البريد وتأكيد رقم الجلوس."; errorMsg.style.display = "block"; }
+        if(errorMsg) { errorMsg.innerText = "⚠️ يرجى إدخال البريد وكلمة السر."; errorMsg.style.display = "block"; }
         return;
     }
     if (!emailRegex.test(emailInput)) {
         if(errorMsg) { errorMsg.innerText = "❌ البريد غير صحيح. أدخل بريد حقيقي."; errorMsg.style.display = "block"; }
         return;
     }
-    if (passInput.length < 5) {
-        if(errorMsg) { errorMsg.innerText = "❌ رقم الجلوس غير صحيح."; errorMsg.style.display = "block"; }
-        return;
-    }
 
     if(errorMsg) errorMsg.style.display = "none";
-    
     localStorage.setItem('savedEmail', emailInput);
     if(document.getElementById('profileEmail')) document.getElementById('profileEmail').value = emailInput;
 
     if(!document.getElementById('loadingMsg')) {
-        document.getElementById('authScreen').innerHTML += "<br><div id='loadingMsg'><p style='margin-bottom: 5px; font-size: 18px; font-weight: bold;'>جاري التحميل...</p><p style='margin-top: 0; font-size: 14px; color: #ddd;'>الرجاء الانتظار</p></div>";
+        document.getElementById('authScreen').innerHTML += "<br><div id='loadingMsg'><p style='margin-bottom: 5px; font-size: 18px; font-weight: bold;'>جاري التحقق من البيانات...</p><p style='margin-top: 0; font-size: 14px; color: #ddd;'>الرجاء الانتظار</p></div>";
     }
 
-    fetch(`${SCRIPT_URL}?action=getInitialData&email=${encodeURIComponent(emailInput)}`)
+    // 🔥 الخطوة الأولى: فحص كلمة السر وتسجيل الحساب 🔥
+    fetch(`${SCRIPT_URL}?action=loginStudent&email=${encodeURIComponent(emailInput)}&pass=${encodeURIComponent(passInput)}`)
         .then(response => response.json())
-        .then(data => {
-            if (data.isPublished === "locked") {
-                showToast("⚠️ الموقع مغلق حالياً", "#ef4444");
+        .then(authData => {
+            if (!authData.success) {
+                // كلمة السر غلط
+                if(errorMsg) { 
+                    errorMsg.innerHTML = `❌ ${authData.message} <br><span style='font-size: 13px; color: #4b5563; display: block; margin-top: 8px; font-weight: normal;'>في حالة نسيان كلمة السر برجاء التواصل مع <a href="https://wa.me/201554580557" target="_blank" style="color: #1d4ed8; text-decoration: underline;">مسؤول الموقع</a></span>`; 
+                    errorMsg.style.display = "block"; 
+                }
                 if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
-                document.getElementById('authScreen').style.display = 'none';
-                document.getElementById('lockdownOverlay').style.display = 'flex';
-                return;
-            } else if (data.isPublished === false || data.isPublished === "false") {
-                showToast("⚠️ النتيجة في قائمة الانتظار", "#ef4444");
-                if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
-                return;
+                return; // نوقف الكود هنا ومندخلوش
             }
 
-            rawData = data.students; 
-            if(document.getElementById('visitCount')) document.getElementById('visitCount').innerText = data.visitCount;
-            if(document.getElementById('updateTimer')) document.getElementById('updateTimer').innerText = "آخر تحديث: " + data.lastUpdate;
+            // 🔥 الخطوة التانية: لو الباسورد صح، نكمل تحميل النتيجة عادي 🔥
+            fetch(`${SCRIPT_URL}?action=getInitialData&email=${encodeURIComponent(emailInput)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isPublished === "locked") {
+                        showToast("⚠️ الموقع مغلق حالياً", "#ef4444");
+                        if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
+                        document.getElementById('authScreen').style.display = 'none';
+                        document.getElementById('lockdownOverlay').style.display = 'flex';
+                        return;
+                    } else if (data.isPublished === false || data.isPublished === "false") {
+                        showToast("⚠️ النتيجة في قائمة الانتظار", "#ef4444");
+                        if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
+                        return;
+                    }
 
-            document.getElementById('authScreen').style.display = 'none';
-            document.getElementById('welcomeScreen').style.display = 'flex';
-            if(document.getElementById('randomDuaa')) document.getElementById('randomDuaa').innerText = duaas[Math.floor(Math.random()*duaas.length)];
+                    rawData = data.students; 
+                    if(document.getElementById('visitCount')) document.getElementById('visitCount').innerText = data.visitCount;
+                    if(document.getElementById('updateTimer')) document.getElementById('updateTimer').innerText = "آخر تحديث: " + data.lastUpdate;
+
+                    document.getElementById('authScreen').style.display = 'none';
+                    document.getElementById('welcomeScreen').style.display = 'flex';
+                    if(document.getElementById('randomDuaa')) document.getElementById('randomDuaa').innerText = duaas[Math.floor(Math.random()*duaas.length)];
+                })
+                .catch(error => {
+                    showToast("حدث خطأ في الاتصال بخادم النتيجة", "#ef4444");
+                    if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
+                });
         })
         .catch(error => {
-            showToast("حدث خطأ في الاتصال بالخادم", "#ef4444");
+            showToast("حدث خطأ في التحقق من الحساب", "#ef4444");
             if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
         });
 }
@@ -2481,7 +2522,7 @@ function resetSearch() {
 #capture::before {
     content: "";
     position: absolute;
-    top: 55%; /* التعديل الأول: رفعنا اللوجو لفوق بدل 45% */
+    top: 50%; /* التعديل الأول: رفعنا اللوجو لفوق بدل 45% */
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
     width: 500px;
@@ -3268,24 +3309,33 @@ function triggerHeavySideConfetti() {
 // --- 3. الدالة المجمعة لإنترو الأسطورة ---
 // --- 3. الدالة المجمعة لإنترو الأسطورة (بتوقيت متتالي احترافي) ---
 function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio, rocketSound, confettiSound) {
-    // إنشاء شاشة الإنترو (التاج الأسود)
     const intro = document.createElement('div');
     intro.className = 'intro-container';
     intro.style.perspective = "1200px"; 
     
     let subtitle = isInstituteFirst ? "المركز الأول على مستوى المعهد ✨" : "المركز الأول على مستوى الشعبة ✨";
+    
+    // 🔥 الكود الجديد: سحب الصورة من المتصفح 🔥
+    let savedAvatar = localStorage.getItem('savedAvatar');
+    let avatarHTML = "";
+    
+    // هنتأكد إن في صورة، وإنها مش الصورة الافتراضية
+    if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
+        avatarHTML = `<img src="${savedAvatar}" class="intro-avatar" alt="صورة الطالب">`;
+    } else {
+        avatarHTML = `<div class="intro-avatar-placeholder">لم يتم<br>تحديد صورة</div>`;
+    }
+
     intro.innerHTML = `
         <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="intro-crown" alt="Crown">
+        ${avatarHTML}
         <div class="intro-name">👑 الأسطورة:${studentName}👑</div>
         <div style="font-size: 1.6rem; color: #e2e8f0; margin-top: 15px; letter-spacing: 1px;">${subtitle}</div>
         <div style="font-size: 1.1rem; color: #a1a1aa; margin-top: 10px;">ألف مبروك التميز والنجاح الباهر!</div>
     `;
-    document.body.appendChild(intro); // السطر ده موجود عندك أصلاً
+    
+    document.body.appendChild(intro);
 
-    // ==========================================
-    // إضافة الموسيقى الخاصة بإنترو التاج الملكي
-    // ==========================================
-    // 1. حط رابط الموسيقى بتاعتك بين علامتين التنصيص (لازم يكون رابط مباشر بينتهي بـ mp3)
     window.crownAudio = new Audio("https://files.catbox.moe/t2ruqx.mp3");
     window.crownAudio.play().catch(e => console.log("انتظر تفاعل المستخدم", e));
     setTimeout(() => {
@@ -3294,104 +3344,70 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
             window.crownAudio.currentTime = 0;  
         }
     }, 5500);
-    // ==========================================
 
-    
-       // ... باقي الكود بتاعك زي ما هو ...
-    // الانتظار 6 ثواني (مدة عرض الإنترو) ثم إخفاؤه
     setTimeout(() => {
         intro.style.transition = 'opacity 0.5s ease';
         intro.style.opacity = '0';
         
         setTimeout(() => {
             intro.remove(); 
-            
             if (isInstituteFirst) {
-                // ==========================================
-                // المرحلة الأولى: إطلاق الصواريخ وصوتها فقط
-                // (هتستمر لمدة 6.5 ثانية)
-                // ==========================================
                 triggerDiagonalRockets(); 
                 if(rocketSound) { 
                     rocketSound.muted = false;
                     rocketSound.currentTime = 0;
                     rocketSound.play(); 
                 }
-                
-                // ==========================================
-                // المرحلة الثانية: بعد 6.5 ثانية (بعد اختفاء الصواريخ)
-                // ==========================================
                 setTimeout(() => {
-                    // 1. إظهار الكارت
                     if (typeof showLegendBanner === 'function') { showLegendBanner(studentName); }
-                    
-                    // 2. ضرب القنابل الملونة
-                    triggerHeavySideConfetti(); 
-                
-                    // 3. تشغيل صوت القنابل
+                    triggerHeavySideConfetti();
                     if(confettiSound) { 
-                        confettiSound.muted = false; 
+                        confettiSound.muted = false;
                         confettiSound.currentTime = 0;
                         confettiSound.play(); 
                     }
-                }, 6500); // <-- تم التأخير هنا لـ 6.5 ثانية
+                }, 6500);
 
-                // ==========================================
-                // المرحلة الثالثة: قبل اختفاء الكارت بثانية واحدة
-                // الحسبة: الصواريخ (6.5 ثانية) + الكارت بيقعد (6.5 ثانية) = 13 ثانية إجمالي
-                // هنشغل الأغنية قبل النهاية بثانية، يعني عند الثانية 12 بالظبط
-                // ==========================================
                 setTimeout(() => {
-                    // كتم صوت القنابل الملونة
                     if(confettiSound) { 
                         confettiSound.pause();
                         confettiSound.muted = true; 
                     }
-                    // تشغيل الأغنية الأصلية
                     if(studentAudio) { 
                         studentAudio.muted = false;
                         studentAudio.currentTime = 0; 
                         studentAudio.play(); 
                     }
-                }, 12000); // <-- تم التأخير هنا لـ 12 ثانية
+                }, 12000);
             }
             else {
-                // ============== [المرحلة الأولى: الأول على الشعبة] ==============
-                // (بدون صواريخ) تشغيل القنابل الملونة وصوتها + الكارت فوراً
                 triggerHeavySideConfetti();
                 if(confettiSound) { 
-                    confettiSound.muted = false; 
+                    confettiSound.muted = false;
                     confettiSound.currentTime = 0; 
                 }
                 if (typeof showLegendBanner === 'function') {
                     showLegendBanner(studentName);
                 }
-                
-                // 2. اللحظة الحاسمة: قبل اختفاء الكارت بـ 1 ثانية
                 setTimeout(() => {
-                    // إيقاف وكتم صوت القنابل الورقية
                     if(confettiSound) { 
                         confettiSound.muted = true; 
                         confettiSound.pause(); 
                     }
-                    // تشغيل أغنية النجاح الأصلية
                     if(studentAudio) { 
                         studentAudio.muted = false; 
                         studentAudio.currentTime = 0; 
                     }
                 }, 5600);
             }
-        }, 500); // وقت الأنيميشن بتاع اختفاء الإنترو
-    }, 6000); // مدة بقاء الإنترو الأساسية
-    // --- تعديل الاسم والتاج في النتيجة (فقط للأول على المعهد) وتوسيطهم المطلق ---
-    // --- تعديل الاسم والتاج في النتيجة (فقط للأول على المعهد) وتوسيطهم المطلق ---
+        }, 500);
+    }, 6000);
+
     const stdNameElement = document.getElementById('stdName');
     if (stdNameElement && isInstituteFirst) { 
-        // نعطي الأب خصائص لضمان التوسيط المطلق بدون التأثير على ترتيب الشعبة
         const headerElement = document.querySelector('.student-header');
         if(headerElement) headerElement.style.position = 'relative';
         
-        // تعديل: تم زيادة المسافة هنا إلى 140px لدفع الشعبة والفرقة والترم وباقي العمود لأسفل ومنع التداخل في الموبايل
         const metaElement = document.querySelector('.std-meta');
         if(metaElement) metaElement.style.paddingTop = '140px';
 
@@ -3400,34 +3416,20 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
             style.id = 'king-name-style';
             style.innerHTML = `
                 .special-first-name-container {
-                    position: absolute;
-                    left: 50%;
-                    top: -25px; /* تعديل: رفع الاسم والتاج للأعلى قليلاً ليعطي مظهر علوي فخم متناسق */
-                    transform: translateX(-50%); /* 🔥 التوسيط المطلق للاسم والتاج فقط في منتصف الكارت 🔥 */
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center; 
-                    justify-content: center;
-                    text-align: center;
-                    white-space: nowrap; /* عشان الاسم ما ينزلش على سطرين */
+                    position: absolute; left: 50%; top: -25px;
+                    transform: translateX(-50%); display: flex;
+                    flex-direction: column; align-items: center; 
+                    justify-content: center; text-align: center; white-space: nowrap;
                 }
                 .name-inline-crown {
-                    width: 85px !important;
-                    animation: inlineCrownFloat 1.5s infinite ease-in-out;
-                    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
-                    margin-bottom: -15px !important; 
-                    z-index: 2;
+                    width: 85px !important; animation: inlineCrownFloat 1.5s infinite ease-in-out;
+                    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); margin-bottom: -15px !important; z-index: 2;
                 }
                 .gold-king-name-inline {
-                    font-size: 1.7em !important;
-                    font-weight: 900 !important;
-                    color: #ffd700 !important;
+                    font-size: 1.7em !important; font-weight: 900 !important; color: #ffd700 !important;
                     text-shadow: 0 0 10px #fff, 0 0 20px #ffd700, 0 0 35px #ff8800;
                     animation: inlineGoldPulse 1.2s infinite alternate;
-                    font-family: 'Cairo', sans-serif;
-                    position: relative;
-                    z-index: 1;
-                    padding-top: 5px;
+                    font-family: 'Cairo', sans-serif; position: relative; z-index: 1; padding-top: 5px;
                 }
                 @keyframes inlineCrownFloat {
                     0% { transform: translateY(0) scale(1) rotate(-5deg); }
@@ -3553,6 +3555,38 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     .main-header h1 {
         font-size: 19px !important;
     }
+}
+/* تنسيقات صورة الأسطورة في الإنترو */
+.intro-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    margin-top: 10px;
+    margin-bottom: -15px;
+    z-index: 3;
+    animation: fadeInIntro 1s ease-in-out;
+}
+.intro-avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px dashed #ffd700;
+    color: #ffd700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    margin-top: 10px;
+    margin-bottom: -15px;
+    z-index: 3;
+    font-family: 'Cairo', sans-serif;
 }
 </style>
 
