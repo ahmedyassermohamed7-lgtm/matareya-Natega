@@ -436,6 +436,14 @@ body {
     background-color: var(--box-bg) !important;
     border: 1px solid var(--border-color) !important;
 }
+/* ضبط مقاس الموقع على شاشات الكمبيوتر فقط */
+@media (min-width: 769px) {
+    #capture, .container, .main-wrapper {
+        max-width: 850px !important; /* ده اللي هيلم الموقع من اليمين والشمال */
+        margin: 30px auto !important; /* ده اللي هيوسطنه في نص الشاشة */
+        border-radius: 15px !important;
+    }
+}
     </style>
     
 <body>
@@ -518,7 +526,7 @@ body {
 
     <div class="top-bar">
         <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
-        <div class="last-update" id="updateTimer">جاري التحميل...</div>
+        
     </div>
 
     <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
