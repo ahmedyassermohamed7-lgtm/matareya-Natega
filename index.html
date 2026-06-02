@@ -232,40 +232,43 @@
         .rank-badge { background: #fef3c7; color: #92400e; padding: 5px 12px; border-radius: 20px; font-weight: bold; border: 1px solid #fde68a; font-size: 13px; }
         
         /* تنسيق الجدول الجديد: خطوط سميكة وأوزان ثقيلة */
-/* تنسيق الجدول الجديد بالكامل */
-/* تنسيق الجدول الاحترافي الجديد */
 /* تنسيق الجدول الاحترافي الجديد */
 .grades-table { 
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 20px 0; 
     text-align: center;
-    border: 2.5px solid #1e293b !important; /* إطار خارجي ثقيل جداً */
-    table-layout: auto !important; 
+    border: 4px solid #000000 !important; /* إطار خارجي أسود ثقيل جداً */
+    table-layout: auto !important;
 }
 .grades-table th, .grades-table td { 
     padding: 15px 10px;
-    border: 2.5px solid #1e293b !important; /* تم توحيد الخطوط الداخلية مع الخارجية */
+    border: 4px solid #000000 !important; /* توحيد الخطوط الداخلية باللون الأسود الثقيل */
     color: #000 !important;
-    font-weight: bold !important; /* زيادة ثقل الكلام */
+    font-weight: bold !important;
 }
 .grades-table th { 
-    background: #e2e8f0; /* التمييز والخلفية الخاصة بالعناوين (المادة، النهاية، درجتك، التقدير) */
-    font-weight: 700; /* أتقل خط ممكن لعناوين الجدول */
-    font-size: 18px; /* حجم خط العناوين */
+    background: #e2e8f0;
+    font-weight: 900; /* أثقل خط ممكن للعناوين */
+    font-size: 18px;
 }
 .grades-table td { 
-    font-weight: 500; /* خط تقيل جداً للدرجات */
-    font-size: 17px; /* حجم خط الكلام والدرجات داخل الجدول */
+    font-weight: bold;
+    font-size: 17px;
 }
 .grades-table tbody tr:hover {
-    background-color: #e2e8f0; /* لون يتغير خفيف لما الماوس ييجي على صف النتيجة */
+    background-color: #e2e8f0;
 }
 /* الوضع الليلي مع الحفاظ على التخانة */
 [data-theme="dark"] .grades-table th, 
 [data-theme="dark"] .grades-table td {
     color: #f8fafc !important;
-    border-color: #475569 !important; 
+    border-color: #94a3b8 !important; /* لون رمادي فاتح للحدود في الوضع الليلي ليكون واضحاً */
+    border-width: 4px !important; /* الحفاظ على السمك الثقيل */
+}
+[data-theme="dark"] .grades-table {
+    border-color: #94a3b8 !important;
+    border-width: 4px !important;
 }
 [data-theme="dark"] .grades-table th {
     background: #1e293b !important;
@@ -381,8 +384,7 @@
 .menu-item span { margin-left: 15px; font-size: 20px; }
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 4000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
 .info-card { max-width: 400px; text-align: center; }
-.grades-table th, .grades-table td { color: var(--text-main) !important; border-color: var(--border-color) !important; }
-.grades-table th { background: var(--row-alt) !important; }
+
 .grades-table tbody tr:hover { background-color: var(--row-alt) !important; filter: brightness(0.9); }
 [data-theme="dark"] { --primary-blue: #3b82f6; --light-bg: #0f172a; --box-bg: #1e293b; --text-main: #f8fafc; --border-color: #334155; --row-alt: #0f172a; --success-green: #4ade80; --danger: #f87171; }
 [data-theme="dark"] #dreamBox, [data-theme="dark"] #prediction-calculator, [data-theme="dark"] #gradesLegend { background: var(--box-bg) !important; border-color: var(--border-color) !important; box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important; }
@@ -3498,12 +3500,18 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 @media (max-width: 768px) {
     
     /* 1. ضبط الحاوية الرئيسية للموقع لترك هوامش جانية متناسقة */
+    /* 1. ضبط الحاوية الرئيسية للموقع لترك هوامش جانية متناسقة */
     .main-wrapper, .container {
-        width: 94% !important; 
+        width: 98% !important; /* تم التكبير لـ 98% لكي يعرض الموقع على الموبايل */
         max-width: 100% !important;
-        margin: 10px auto !important; 
-        padding: 10px 4px !important;
+        margin: 5px auto !important; 
+        padding: 10px 2px !important;
         box-sizing: border-box !important;
+    }
+
+    /* 1.5 تقليل المسافات الداخلية لكرت النتيجة نفسه لكي يفرش الجدول للآخر */
+    #capture {
+        padding: 15px 4px !important; /* تقليل الفراغ الجانبي من 25 بكسل إلى 4 بكسل فقط */
     }
 
     /* 2. حل مشكلة صورة القفل على الموبايل */
