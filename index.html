@@ -399,16 +399,23 @@ body {
     box-sizing: border-box;
 }
 /* 1. إخفاء جملة جاري التحميل نهائياً من الشاشة */
-.last-update, #updateTimer {
+/* 1. إصلاح الوضع الليلي: تغيير لون خلفية الكارت الرئيسي علشان الثلاث شرط وعدد الزوار يظهرو عليه */
+[data-theme="dark"] .main-wrapper {
+    background-color: var(--box-bg) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* 2. إخفاء "جاري التحميل" المكررة اللي عاملة مسافة، مع الحفاظ على "آخر تحديث" اللي فوق */
+.main-wrapper > .last-update {
     display: none !important;
 }
 
-/* 2. تلوين الثلاث شرط وعدد الزوار باللون الأبيض في الوضع الليلي لضمان ظهورهم */
-[data-theme="dark"] .hamburger-btn,
-[data-theme="dark"] .hamburger-btn i,
-[data-theme="dark"] .visitor-counter {
-    color: #ffffff !important;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* توهج خفيف لزيادة الوضوح */
+/* 3. رفع الموقع لفوق وتقليل المسافات الفاضية */
+.main-wrapper {
+    padding-top: 15px !important; 
+}
+.top-bar {
+    margin-bottom: 5px !important;
 }
     </style>
     
