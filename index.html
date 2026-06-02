@@ -242,8 +242,8 @@
     table-layout: auto !important;
 }
 .grades-table th, .grades-table td { 
-    padding: 15px 10px;
-    border: 3px solid #000000 !important; /* توحيد الخطوط الداخلية باللون الأسود الثقيل */
+    padding: 22px 10px;
+    border: 2px solid #000000 !important; /* توحيد الخطوط الداخلية باللون الأسود الثقيل */
     color: #000 !important;
     font-weight: bold !important;
 }
@@ -435,38 +435,6 @@ body {
 [data-theme="dark"] .main-wrapper {
     background-color: var(--box-bg) !important;
     border: 1px solid var(--border-color) !important;
-}
-/* =========================================
-   كود إجباري لتعديل اللوجو المائي وطول الجدول 
-   ========================================= */
-
-/* 1. تنزيل اللوجو المائي لتحت */
-#capture {
-    /* لو اللوجو محطوط كخلفية مباشرة، الرقم 70% ده هو اللي بينزله لتحت، تقدر تكبره لـ 80% لو عايزه ينزل أكتر */
-    background-position: center 40% !important; 
-}
-#capture::before {
-    /* لو اللوجو محطوط كعنصر إضافي، الرقم 60% بينزله لتحت */
-    top: 40% !important; 
-}
-
-/* 2. تطويل الجدول من فوق وتحت */
-.grades-table th, 
-.grades-table td {
-    /* الرقم 28px هو المسافة من فوق وتحت (كل ما تكبره الجدول يطول أكتر) */
-    /* الرقم 10px هو المسافة من اليمين والشمال */
-    padding: 32px 10px !important; 
-    height: 65px !important; /* إجبار الخلية إن ارتفاعها يكون أطول */
-    line-height: 2 !important; /* توسيع المسافة بين السطور لو الكلام كتير */
-}
-
-/* حل تعارض وضع الموبايل علشان الجدول مايبوظش */
-@media (max-width: 600px) {
-    .grades-table th, 
-    .grades-table td {
-        padding: 20px 8px !important; /* في الموبايل بنقلل الطول شوية عشان الشاشة */
-        height: auto !important;
-    }
 }
     </style>
     
@@ -2513,7 +2481,7 @@ function resetSearch() {
 #capture::before {
     content: "";
     position: absolute;
-    top: 35%; /* التعديل الأول: رفعنا اللوجو لفوق بدل 45% */
+    top: 30%; /* التعديل الأول: رفعنا اللوجو لفوق بدل 45% */
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
     width: 500px;
@@ -3571,7 +3539,7 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 
     /* 4. ترييح خانات الجدول وضبط المقاسات لتكفي شاشة الموبايل */
     .grades-table th, .grades-table td {
-        padding: 10px 5px !important; /* تقليل المسافات الجانبية قليلاً لتوفير مساحة للأعمدة الأربعة */
+        padding: 22px 5px !important; /* تقليل المسافات الجانبية قليلاً لتوفير مساحة للأعمدة الأربعة */
         font-size: 14.5px !important; /* حجم خط ممتاز للقراءة ولا يكسر تصميم الموبايل */
     }
 
