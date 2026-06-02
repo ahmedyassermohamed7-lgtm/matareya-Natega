@@ -8,7 +8,7 @@
 <meta property="og:title" content="بوابة نتائج معهد المطرية">
 <meta property="og:description" content="استعلم عن نتيجتك فوراً من الموقع الرسمي">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نتيجة معهد المطرية | البوابة الرسمية</title>
     <!-- الأيقونة الأساسية للمتصفحات ومحرك بحث جوجل (مع تصحيح النوع وتحديد المقاس) -->
 <link rel="icon" href="https://i.postimg.cc/zB47NkxQ/photo-5823574396516372238-y-(2).jpg" type="image/jpeg" sizes="96x96">
@@ -381,9 +381,27 @@
 [data-theme="dark"] .status-badge.re-entry { background: rgba(248, 113, 113, 0.1) !important; color: #f87171 !important; border: 1px solid #f87171; }
 [data-theme="dark"] .autocomplete-item { color: var(--text-main); border-bottom: 1px solid var(--border-color); }
 [data-theme="dark"] .autocomplete-item:hover { background: var(--primary-blue); color: white; }
+    /* الكود الجديد لضبط أبعاد الصفحة ومنع التمدد الزائد */
+body {
+    background-color: #f3f4f6; /* لون خلفية رمادي مريح عام للموقع */
+    margin: 0;
+    padding: 0;
+}
+
+.main-wrapper {
+    max-width: 1100px; /* العرض الأقصى الاحترافي والمناسب لعرض الجداول والبيانات */
+    width: 95%; /* لضمان وجود مسافة أمان جمالية على الشاشات الصغيرة والهواتف */
+    margin: 30px auto; /* لتوسيط الموقع في منتصف الشاشة تماماً مع مسافة من الأعلى والأسفل */
+    background-color: #ffffff; /* لون خلفية الكارت الرئيسي (أبيض ناصع) */
+    border-radius: 15px; /* حواف دائرية أنيقة ومريحة للعين مثل ملفك القديم */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* ظل خفيف ومنظم يعطي عمقاً للمظهر */
+    padding: 30px; /* مسافة داخلية مريحة لتباعد العناصر والجداول عن الحواف */
+    box-sizing: border-box;
+}
     </style>
-</head>
+    
 <body>
+  <div class="main-wrapper">
   <div id="siteLoader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0f1e; z-index:100000; display:flex; justify-content:center; align-items:center; flex-direction:column; color:#fff; font-family:'Cairo',sans-serif;">
     <div style="border:4px solid #f3f3f3; border-top:4px solid #3498db; border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite;"></div>
     <p style="margin-top:20px; font-size:18px; direction:rtl;">جاري الاتصال بالسيرفر ...</p>
@@ -3415,5 +3433,8 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     
 
 </script>
+
 </body>
+
+
 </html>
