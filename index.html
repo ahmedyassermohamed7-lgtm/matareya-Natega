@@ -234,33 +234,30 @@
         /* تنسيق الجدول الجديد: خطوط سميكة وأوزان ثقيلة */
 /* تنسيق الجدول الجديد بالكامل */
 /* تنسيق الجدول الاحترافي الجديد */
-        /* تنسيق الجدول الاحترافي من الملف القديم */
-/* تنسيق الجدول الاحترافي العريض والمُحسّن */
-/* تنسيق الجدول الاحترافي العريض والمُحسّن */
 .grades-table { 
-    width: 100% !important;
+    width: 100% !important; /* ده عشان يفرش بالعرض الكامل مهما حصل */
     border-collapse: collapse;
     margin: 20px 0; 
     text-align: center; 
-    border: 4px solid #1e293b !important; 
-    table-layout: auto;
+    border: 1.5px solid #1e293b; /* إطار خارجي تقيل جداً بلون غامق */
+    table-layout: auto; /* عشان يوزع العرض حسب الكلام */
 }
 .grades-table th, .grades-table td { 
     padding: 15px 10px;
-    border: 4px solid #475569 !important; 
-    color: #000;
+    border: 1.5px solid #475569; /* خطوط داخلية تقيلة وواضحة */
+    color: #000; /* نص أسود صريح للوضوح التام */
 }
 .grades-table th { 
-    background: #e2e8f0;
-    font-weight: 900 !important; 
-    font-size: 19px !important;
+    background: #e2e8f0; /* التمييز والخلفية الخاصة بالعناوين (المادة، النهاية، درجتك، التقدير) */
+    font-weight: 700; /* أتقل خط ممكن لعناوين الجدول */
+    font-size: 18px; /* حجم خط العناوين */
 }
 .grades-table td { 
-    font-weight: 700 !important; 
-    font-size: 18px !important;
+    font-weight: 500; /* خط تقيل جداً للدرجات */
+    font-size: 17px; /* حجم خط الكلام والدرجات داخل الجدول */
 }
 .grades-table tbody tr:hover {
-    background-color: #cbd5e1 !important;
+    background-color: #e2e8f0; /* لون يتغير خفيف لما الماوس ييجي على صف النتيجة */
 }
 /* الوضع الليلي مع الحفاظ على التخانة */
 [data-theme="dark"] .grades-table th, 
@@ -3478,14 +3475,14 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 
     /* 3. منع الجدول من تدمير الشاشة وعمل مرونة */
     .table-responsive {
-    width: 94%; /* ده اللي هيخليه مطاطي ويسيب مسافة 3% يمين و 3% شمال على أي شاشة */
+    width: 96%; /* ده اللي هيخليه مطاطي ويسيب مسافة 3% يمين و 3% شمال على أي شاشة */
     max-width: 1200px; /* (!) اكتب هنا عرض الجدول بالبكسل اللي عاجبك على الكمبيوتر حالياً */
     margin: 20px auto; /* auto دي بتخلي الجدول يلقط نفسه في نص الشاشة بالظبط */
     overflow-x: auto; /* حماية للموجات الضيقة عشان لو الشاشة صغرت الجدول ميتفصص */
     box-sizing: border-box;
 }
     .grades-table {
-    width: 94% !important; /* بيخلي الجدول مطاطي وبيديك مسافة 3% يمين و 3% شمال على الشاشات الكبيرة */
+    width: 96% !important; /* بيخلي الجدول مطاطي وبيديك مسافة 3% يمين و 3% شمال على الشاشات الكبيرة */
     max-width: 1100px !important; /* العرض المثالي على الكمبيوتر عشان الجدول ميمطش بزيادة وشكله يبوظ */
     margin: 25px auto !important; /* auto دي السحر اللي بيخلي الجدول يلقط نفسه في نص الشاشة بالظبط */
     border-collapse: collapse;
