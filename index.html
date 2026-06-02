@@ -235,17 +235,18 @@
 /* تنسيق الجدول الجديد بالكامل */
 /* تنسيق الجدول الاحترافي الجديد */
 .grades-table { 
-    width: 100% !important; /* ده عشان يفرش بالعرض الكامل مهما حصل */
-    border-collapse: collapse;
+    width: 100% !important;
+    border-collapse: collapse !important;
     margin: 20px 0; 
-    text-align: center; 
-    border: 1.5px solid #1e293b; /* إطار خارجي تقيل جداً بلون غامق */
-    table-layout: auto; /* عشان يوزع العرض حسب الكلام */
+    text-align: center;
+    border: 2.5px solid #1e293b !important; /* إطار خارجي سميك جداً */
+    table-layout: auto !important; 
 }
 .grades-table th, .grades-table td { 
     padding: 15px 10px;
-    border: 1.5px solid #475569; /* خطوط داخلية تقيلة وواضحة */
-    color: #000; /* نص أسود صريح للوضوح التام */
+    border: 2.5px solid #1e293b !important; /* نفس الإطار الخارجي بالضبط لتوحيد الثقل */
+    color: #000 !important;
+    font-weight: bold; /* زيادة ثقل الكلام داخل الجدول */
 }
 .grades-table th { 
     background: #e2e8f0; /* التمييز والخلفية الخاصة بالعناوين (المادة، النهاية، درجتك، التقدير) */
@@ -3511,19 +3512,25 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     }
 
     /* 3. جعل الجدول مطاطي ومرن تماماً على الموبايل */
+    /* 3. إصلاح الجدول وجعله كتلة واحدة لا تتشوه */
+    .table-responsive {
+        width: 100% !important;
+        overflow-x: auto !important; /* السحب الأفقي يوضع على الحاوية الخارجية وليس الجدول */
+        -webkit-overflow-scrolling: touch;
+    }
+    
     .grades-table {
-        display: block !important; /* ضروري جداً على الموبايل ل تفعيل السحب الأفقي */
-        width: 100% !important; /* يملا مساحة الحاوية المتاحة */
+        display: table !important; /* إرجاع الجدول لطبيعته الهندسية لمنع التمدد العشوائي */
+        width: 100% !important;
+        min-width: 600px !important; /* عرض أدنى لضمان عدم انضغاط الكلام، سيظهر شريط سحب إذا كانت الشاشة أصغر */
         margin: 15px 0 !important;
-        overflow-x: auto !important; /* بيعمل شريط سحب (Scroll) أفقي ناعم لو الأعمدة كتير */
-        white-space: nowrap !important; /* بيمنع الكلام الصغير إنه ينزل تحت بعضه ويحافظ على تفرد الأعمدة */
-        -webkit-overflow-scrolling: touch; /* سحب سلس جداً بإصبع اليد على شاشات اللمس */
+        white-space: nowrap !important;
     }
 
-    /* 4. ترييح خانات الجدول وتكبير الخط عشان يظهر بوضوح مع مقاس scale=0.7 */
+    /* 4. ترييح خانات الجدول وتكبير الخط */
     .grades-table th, .grades-table td {
-        padding: 12px 10px !important; /* بيوسع الخانات عشان الطالب يشوف درجته بسهولة */
-        font-size: 15px !important; /* خط واضح ومناسب جداً للموبايل */
+        padding: 12px 10px !important;
+        font-size: 16px !important; /* تكبير الخط قليلاً ليكون أوضح */
     }
 
     /* 5. تنسيق قسم البحث وزرار الاستعلام على الموبايل */
