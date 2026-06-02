@@ -235,37 +235,38 @@
 /* تنسيق الجدول الجديد بالكامل */
 /* تنسيق الجدول الاحترافي الجديد */
         /* تنسيق الجدول الاحترافي من الملف القديم */
+/* تنسيق الجدول الاحترافي العريض والمُحسّن */
+/* تنسيق الجدول الاحترافي العريض والمُحسّن */
 .grades-table { 
     width: 100% !important;
     border-collapse: collapse;
     margin: 20px 0; 
     text-align: center; 
-    border: 1.5px solid #1e293b !important; 
+    border: 3px solid #1e293b !important; 
     table-layout: auto;
 }
 .grades-table th, .grades-table td { 
     padding: 15px 10px;
-    border: 1.5px solid #475569 !important; 
+    border: 3px solid #475569 !important; 
     color: #000;
 }
 .grades-table th { 
     background: #e2e8f0;
-    font-weight: 700 !important; 
-    font-size: 18px !important;
+    font-weight: 900 !important; 
+    font-size: 19px !important;
 }
 .grades-table td { 
-    font-weight: 500 !important;
-    font-size: 17px !important;
+    font-weight: 800 !important; 
+    font-size: 18px !important;
 }
-/* تأثير الهوفر */
 .grades-table tbody tr:hover {
     background-color: #cbd5e1 !important;
 }
-/* توافق الجدول مع الوضع الليلي مع الحفاظ على التخانة */
+/* الوضع الليلي مع الحفاظ على التخانة */
 [data-theme="dark"] .grades-table th, 
 [data-theme="dark"] .grades-table td {
     color: #f8fafc !important;
-    border-color: #64748b !important;
+    border-color: #475569 !important; 
 }
 [data-theme="dark"] .grades-table th {
     background: #1e293b !important;
@@ -530,12 +531,12 @@ body {
                 <label for="imageUploader" class="edit-avatar-btn">✏️</label>
                 <input type="file" id="imageUploader" accept="image/*" style="display: none;" onchange="updateProfileImage(event)">
             </div>
-            <input type="text" id="profileName" class="profile-input name-input" placeholder="الاسم (اضغط للتعديل)" onchange="saveProfileData()">
+            <input type="text" id="profileName" class="profile-input name-input" placeholder="الاسم..." onchange="saveProfileData()">
             <input type="email" id="profileEmail" class="profile-input email-input" placeholder="البريد الإلكتروني" onchange="saveProfileData()">
         </div>
         <div class="sidebar-menu">
             <a href="#" class="menu-item"><span>🏛️</span> موقع المعهد الرسمي</a>
-            <a href="#" onclick="shareApp()" class="menu-item"><span>📤</span> مشاركة التطبيق</a>
+            <a href="#" onclick="shareApp()" class="menu-item"><span>📤</span> مشاركة الموقع</a>
             <a href="#" class="menu-item"><span>💬</span> تواصل مع مسؤول الموقع</a>
             <a href="#" onclick="showAppInfo()" class="menu-item"><span>ℹ️</span> حول التطبيق</a>
         </div>
@@ -584,9 +585,9 @@ body {
         <a href="#" onclick="shareApp()" class="menu-item">
             <span>📤</span> مشاركة التطبيق
         </a>
-        <a href="01554580557" target="_blank" class="menu-item">
-            <span>💬</span> تواصل مع مسؤول الموقع
-        </a>
+        <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
+    <span>💬</span> تواصل مع مسؤول الموقع
+</a>
         <a href="#" onclick="showAppInfo()" class="menu-item">
             <span>ℹ️</span> حول التطبيق
         </a>
@@ -2478,7 +2479,7 @@ function resetSearch() {
 #capture::before {
     content: "";
     position: absolute;
-    top: 45%;
+    top: 35%; /* التعديل الأول: رفعنا اللوجو لفوق بدل 45% */
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
     width: 500px;
@@ -2490,6 +2491,13 @@ function resetSearch() {
     z-index: 0;
     pointer-events: none;
 }
+
+/* التعديل الثاني: الوضع الليلي الآمن جداً (بيخفي المربع الأبيض بدون ما يبوظ حفظ الصورة) */
+[data-theme="dark"] #capture::before {
+    filter: invert(1); /* بيعكس الألوان عشان تليق مع الخلفية الغامقة */
+    opacity: 0.05 !important; /* بنقلل الشفافية جداً عشان تندمج وتبقى علامة مائية خفيفة */
+}
+
 @media print {
     body {
         -webkit-print-color-adjust: exact !important;
@@ -2622,7 +2630,13 @@ function drawRadarChart(subjectLabels, scores) {
                         font: { family: 'Cairo', size: window.innerWidth < 600 ? 11 : 14, weight: '900' },
                         color: '#334155'
                     },
-                    ticks: { display: false }
+                    ticks: { 
+    display: true, 
+    color: '#1e3a8a', 
+    backdropColor: 'transparent', 
+    stepSize: 20, 
+    font: { family: 'Cairo', size: 12, weight: 'bold' } 
+}
                 }
             },
             plugins: { legend: { display: false } }
