@@ -8,7 +8,7 @@
 <meta property="og:title" content="بوابة نتائج معهد المطرية">
 <meta property="og:description" content="استعلم عن نتيجتك فوراً من الموقع الرسمي">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نتيجة معهد المطرية | البوابة الرسمية</title>
     <!-- الأيقونة الأساسية للمتصفحات ومحرك بحث جوجل (مع تصحيح النوع وتحديد المقاس) -->
 <link rel="icon" href="https://i.postimg.cc/zB47NkxQ/photo-5823574396516372238-y-(2).jpg" type="image/jpeg" sizes="96x96">
@@ -20,6 +20,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+      /* ضبط حجم الموقع الأساسي عشان يسيب حواف على الموبايل واللاب */
+.main-wrapper {
+    width: 90% !important; /* هيسيب 5% يمين و 5% شمال دايماً */
+    max-width: 1000px !important; /* مش هيكبر عن الحجم ده على شاشات اللاب */
+    margin: 20px auto !important; /* لتوسيط الموقع */
+}
+
+/* الكود ده بيمنع أي حاجة كبيرة إنها تخرج بره الشاشة وتبوظها */
+img, table, div {
+    max-width: 100% !important;
+}
       /* زر الثلاث شرط */
 .hamburger-btn {
     background: transparent;
