@@ -8,7 +8,7 @@
 <meta property="og:title" content="بوابة نتائج معهد المطرية">
 <meta property="og:description" content="استعلم عن نتيجتك فوراً من الموقع الرسمي">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.75">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7">
     <title>نتيجة معهد المطرية | البوابة الرسمية</title>
     <!-- الأيقونة الأساسية للمتصفحات ومحرك بحث جوجل (مع تصحيح النوع وتحديد المقاس) -->
 <link rel="icon" href="https://i.postimg.cc/zB47NkxQ/photo-5823574396516372238-y-(2).jpg" type="image/jpeg" sizes="96x96">
@@ -398,55 +398,39 @@
 [data-theme="dark"] .autocomplete-item { color: var(--text-main); border-bottom: 1px solid var(--border-color); }
 [data-theme="dark"] .autocomplete-item:hover { background: var(--primary-blue); color: white; }
     /* الكود الجديد لضبط أبعاد الصفحة ومنع التمدد الزائد */
-/* ======================================================= */
-/* 1. الكود الأساسي لضبط عرض الصفحة ومنع التمدد الزائد */
-/* ======================================================= */
 body {
-    background-color: #f3f4f6;
+    background-color: #f3f4f6; /* لون خلفية رمادي مريح عام للموقع */
     margin: 0;
     padding: 0;
 }
 
 .main-wrapper {
-    max-width: 1100px !important;
-    width: 95% !important;
-    margin: 30px auto !important;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    padding: 30px;
+    max-width: 1100px; /* العرض الأقصى الاحترافي والمناسب لعرض الجداول والبيانات */
+    width: 95%; /* لضمان وجود مسافة أمان جمالية على الشاشات الصغيرة والهواتف */
+    margin: 30px auto; /* لتوسيط الموقع في منتصف الشاشة تماماً مع مسافة من الأعلى والأسفل */
+    background-color: #ffffff; /* لون خلفية الكارت الرئيسي (أبيض ناصع) */
+    border-radius: 15px; /* حواف دائرية أنيقة ومريحة للعين مثل ملفك القديم */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* ظل خفيف ومنظم يعطي عمقاً للمظهر */
+    padding: 30px; /* مسافة داخلية مريحة لتباعد العناصر والجداول عن الحواف */
     box-sizing: border-box;
 }
-
-/* ======================================================= */
-/* 2. إخفاء كلمة "جاري التحميل" المكررة ورفع الموقع لفوق */
-/* ======================================================= */
+/* 1. إخفاء كلمة جاري التحميل المكررة اللي عاملة مسافة كبيرة */
 #mainApp > .last-update {
     display: none !important;
 }
 
+/* 2. رفع الموقع وتقليل المساحة الفاضية فوق */
 .main-wrapper {
     padding-top: 15px !important;
 }
-
 .top-bar {
     margin-bottom: 0 !important;
 }
 
-/* ======================================================= */
-/* 3. إصلاح الوضع الليلي (عدد الزوار وزر القائمة) */
-/* ======================================================= */
-/* 3. إظهار الثلاث شرط وعدد الزوار باللون الأبيض في الوضع الليلي مع تلوين الرقم */
+/* 3. إظهار الثلاث شرط وعدد الزوار باللون الأبيض في الوضع الليلي */
 [data-theme="dark"] .hamburger-btn,
 [data-theme="dark"] .visitor-counter {
     color: #ffffff !important;
-}
-.visitor-counter span {
-    color: var(--primary-blue);
-    font-size: 16px;
-}
-[data-theme="dark"] .visitor-counter span {
-    color: var(--gold) !important;
 }
 [data-theme="dark"] .main-wrapper {
     background-color: var(--box-bg) !important;
@@ -534,16 +518,14 @@ body {
 
     <div class="top-bar">
         <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
-        <div id="updateTimer" style="display: none;"></div>
+        <div class="last-update" id="updateTimer">جاري التحميل...</div>
     </div>
 
     <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
-    
     <div id="mainSidebar" class="sidebar">
         <div class="sidebar-header">
             <button class="close-btn" onclick="toggleSidebar()">✖</button>
         </div>
-        
         <div class="profile-section">
             <div class="avatar-wrapper">
                 <img id="profileAvatar" src="a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg" alt="صورة الطالب">
@@ -553,22 +535,25 @@ body {
             <input type="text" id="profileName" class="profile-input name-input" placeholder="الاسم..." onchange="saveProfileData()">
             <input type="email" id="profileEmail" class="profile-input email-input" placeholder="البريد الإلكتروني" onchange="saveProfileData()">
         </div>
-
         <div class="sidebar-menu">
-            <a href="https://www.facebook.com/share/g/17rds78RJN/" target="_blank" class="menu-item">
-                <span>🏛️</span> موقع المعهد الرسمي
-            </a>
-            <a href="#" onclick="shareApp()" class="menu-item">
-                <span>📤</span> مشاركة التطبيق
-            </a>
-            <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
-                <span>💬</span> تواصل مع مسؤول الموقع
-            </a>
-            <a href="#" onclick="showAppInfo()" class="menu-item">
-                <span>ℹ️</span> حول التطبيق
-            </a>
-        </div>
-
+    <!-- 1. رابط الموقع الرسمي (حط لينك الموقع بدل الرابط اللي بين علامتين التنصيص) -->
+    <a href="https://www.facebook.com/share/g/17rds78RJN/" target="_blank" class="menu-item">
+        <span>🏛️</span> موقع المعهد الرسمي
+    </a>
+    
+    <a href="#" onclick="shareApp()" class="menu-item">
+        <span>📤</span> مشاركة التطبيق
+    </a>
+    
+    <!-- 2. رابط الواتساب (حط رقمك بعد wa.me/ مع كود الدولة 20 لمصر) -->
+    <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
+        <span>💬</span> تواصل مع مسؤول الموقع
+    </a>
+    
+    <a href="#" onclick="showAppInfo()" class="menu-item">
+        <span>ℹ️</span> حول التطبيق
+    </a>
+</div>
         <div class="sidebar-footer">
             <button id="sidebarThemeBtn" class="menu-item theme-toggle-btn" onclick="toggleTheme()" style="justify-content: flex-end; padding-right: 25px;">
                 <span id="themeText">الوضع الليلي</span> <span id="themeIcon" style="margin-left: 10px;">🌙</span>
@@ -576,22 +561,26 @@ body {
         </div>
     </div>
 
-    <div id="appInfoModal" class="modal-overlay" onclick="closeAppInfo(event)">
-        <div class="modal-card info-card">
-            <h2 style="color: var(--primary-blue); margin-top: 0;">ℹ️ حول بوابة النتائج</h2>
-            <p style="font-size: 15px; line-height: 1.8; text-align: justify; direction: rtl;">
-                تم تصميم وتطوير هذه البوابة بكل فخر لخدمة صرح تعليمي عظيم، <strong>معهد فني صناعي المطرية</strong>. 
-                تهدف البوابة إلى توفير أسرع وأدق تجربة للطلاب للاستعلام عن نتائجهم بكل سهولة وخصوصية.
-                <br><br>
-                👨‍💻 <strong>تطوير وتصميم:</strong> المهندس أحمد ياسر محمد.<br>
-                تم بناء هذا النظام باستخدام أحدث تقنيات الويب لضمان أمان بياناتكم وسرعة الوصول إليها.
-            </p>
-            <div style="margin-top: 15px; padding: 10px; background: var(--row-alt); border-radius: 8px; font-weight: bold; color: var(--gold); border: 1px solid var(--border-color);">
-                الإصدار: 2.0.1 | دفعة 2026
-            </div>
-            <button onclick="closeAppInfo()" class="btn-start" style="width: 100%; margin-top: 15px; padding: 10px;">إغلاق الواجهة</button>
+    <!-- نافذة "حول التطبيق" -->
+<div id="appInfoModal" class="modal-overlay" onclick="closeAppInfo(event)">
+    <div class="modal-card info-card">
+        <h2 style="color: var(--primary-blue); margin-top: 0;">ℹ️ حول بوابة النتائج</h2>
+        
+        <p style="font-size: 15px; line-height: 1.8; text-align: justify; direction: rtl;">
+            تم تصميم وتطوير هذه البوابة بكل فخر لخدمة صرح تعليمي عظيم، <strong>معهد فني صناعي المطرية</strong>. 
+            تهدف البوابة إلى توفير أسرع وأدق تجربة للطلاب للاستعلام عن نتائجهم بكل سهولة وخصوصية.
+            <br><br>
+            👨‍💻 <strong>تطوير وتصميم:</strong> المهندس أحمد ياسر محمد (خريج قسم تشغيل معادن).<br>
+            تم بناء هذا النظام باستخدام أحدث تقنيات الويب لضمان أمان بياناتكم وسرعة الوصول إليها.
+        </p>
+        
+        <div style="margin-top: 15px; padding: 10px; background: var(--row-alt); border-radius: 8px; font-weight: bold; color: var(--gold); border: 1px solid var(--border-color);">
+            الإصدار: 2.0.1 | دفعة 2026
         </div>
+        
+        <button onclick="closeAppInfo()" class="btn-start" style="width: 100%; margin-top: 15px; padding: 10px;">إغلاق الواجهة</button>
     </div>
+</div>
     </div>
 
 <!-- خلفية شفافة عند فتح القائمة -->
