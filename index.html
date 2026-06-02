@@ -20,17 +20,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      /* ضبط حجم الموقع الأساسي عشان يسيب حواف على الموبايل واللاب */
-.main-wrapper {
-    width: 90% !important; /* هيسيب 5% يمين و 5% شمال دايماً */
-    max-width: 1000px !important; /* مش هيكبر عن الحجم ده على شاشات اللاب */
-    margin: 20px auto !important; /* لتوسيط الموقع */
-}
-
-/* الكود ده بيمنع أي حاجة كبيرة إنها تخرج بره الشاشة وتبوظها */
-img, table, div {
-    max-width: 100% !important;
-}
       /* زر الثلاث شرط */
 .hamburger-btn {
     background: transparent;
@@ -3464,9 +3453,55 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     // --- تعديل الاسم والتاج في النتيجة (فقط للأول على المعهد) وتوسيطهم المطلق ---000); 
 
     // --- تعديل الاسم والتاج في النتيجة (فقط للأول على المعهد) وتوسيطهم المطلق ---
-    
+    </script>
 
-</script>
+<style>
+/* ======================================================= */
+/* كود خاص بالموبايل فقط - لن يؤثر على الكمبيوتر نهائياً */
+/* ======================================================= */
+@media (max-width: 768px) {
+    
+    /* 1. ضبط الحاوية الرئيسية: جعل الموقع أصغر من حجم شاشة الموبايل وترك حواف فارغة يميناً ويساراً */
+    .main-wrapper, .container {
+        width: 92% !important; /* هيسيب مسافة 4% يمين وشمال كإطار جمالي */
+        max-width: 100% !important;
+        margin: 10px auto !important; /* لتوسيط الموقع */
+        padding: 10px !important;
+    }
+
+    /* 2. حل مشكلة صورة القفل العملاقة */
+    .lock-custom-img {
+        max-width: 85% !important;
+        height: auto !important;
+    }
+
+    /* 3. منع الجدول من تدمير الشاشة وعمل مرونة */
+    .grades-table {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important; /* عمل شريط سحب أفقي للجدول لو الكلام كتير */
+        white-space: nowrap !important;
+    }
+
+    .grades-table th, .grades-table td {
+        padding: 8px 6px !important; 
+        font-size: 13px !important;
+    }
+
+    /* 4. تنسيق قسم البحث على الموبايل */
+    .search-section {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        padding: 12px !important;
+    }
+
+    .main-header h1 {
+        font-size: 19px !important;
+    }
+}
+</style>
+
+
 
 </body>
 
