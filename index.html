@@ -238,12 +238,12 @@
     border-collapse: collapse !important;
     margin: 20px 0; 
     text-align: center;
-    border: 4px solid #000000 !important; /* إطار خارجي أسود ثقيل جداً */
+    border: 3px solid #000000 !important; /* إطار خارجي أسود ثقيل جداً */
     table-layout: auto !important;
 }
 .grades-table th, .grades-table td { 
     padding: 15px 10px;
-    border: 4px solid #000000 !important; /* توحيد الخطوط الداخلية باللون الأسود الثقيل */
+    border: 3px solid #000000 !important; /* توحيد الخطوط الداخلية باللون الأسود الثقيل */
     color: #000 !important;
     font-weight: bold !important;
 }
@@ -435,6 +435,38 @@ body {
 [data-theme="dark"] .main-wrapper {
     background-color: var(--box-bg) !important;
     border: 1px solid var(--border-color) !important;
+}
+/* =========================================
+   كود إجباري لتعديل اللوجو المائي وطول الجدول 
+   ========================================= */
+
+/* 1. تنزيل اللوجو المائي لتحت */
+#capture {
+    /* لو اللوجو محطوط كخلفية مباشرة، الرقم 70% ده هو اللي بينزله لتحت، تقدر تكبره لـ 80% لو عايزه ينزل أكتر */
+    background-position: center 70% !important; 
+}
+#capture::before {
+    /* لو اللوجو محطوط كعنصر إضافي، الرقم 60% بينزله لتحت */
+    top: 60% !important; 
+}
+
+/* 2. تطويل الجدول من فوق وتحت */
+.grades-table th, 
+.grades-table td {
+    /* الرقم 28px هو المسافة من فوق وتحت (كل ما تكبره الجدول يطول أكتر) */
+    /* الرقم 10px هو المسافة من اليمين والشمال */
+    padding: 28px 10px !important; 
+    height: 65px !important; /* إجبار الخلية إن ارتفاعها يكون أطول */
+    line-height: 1.6 !important; /* توسيع المسافة بين السطور لو الكلام كتير */
+}
+
+/* حل تعارض وضع الموبايل علشان الجدول مايبوظش */
+@media (max-width: 600px) {
+    .grades-table th, 
+    .grades-table td {
+        padding: 20px 8px !important; /* في الموبايل بنقلل الطول شوية عشان الشاشة */
+        height: auto !important;
+    }
 }
     </style>
     
