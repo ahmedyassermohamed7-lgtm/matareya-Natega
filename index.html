@@ -674,7 +674,7 @@ body {
                     <div class="rank-badge" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">ترتيب المعهد: <span id="stdRankAll">#12</span></div>
                 </div>
             </div>
-
+<div class="table-responsive">
             <table class="grades-table">
                 <thead>
                     <tr>
@@ -686,6 +686,7 @@ body {
                 </thead>
                 <tbody id="gradesBody"></tbody>
             </table>
+            </div>
 <div id="statusBox" class="mt-6 p-4 rounded-lg text-center font-bold text-lg"></div>
 
 <div class="chart-container" style="position: relative; margin: 20px auto; height: 450px; width: 100%; max-width: 550px;">
@@ -3476,19 +3477,59 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     }
 
     /* 3. منع الجدول من تدمير الشاشة وعمل مرونة */
+    .table-responsive {
+    width: 94%; /* ده اللي هيخليه مطاطي ويسيب مسافة 3% يمين و 3% شمال على أي شاشة */
+    max-width: 1200px; /* (!) اكتب هنا عرض الجدول بالبكسل اللي عاجبك على الكمبيوتر حالياً */
+    margin: 20px auto; /* auto دي بتخلي الجدول يلقط نفسه في نص الشاشة بالظبط */
+    overflow-x: auto; /* حماية للموجات الضيقة عشان لو الشاشة صغرت الجدول ميتفصص */
+    box-sizing: border-box;
+}
     .grades-table {
-        display: block !important;
-        width: 100% !important;
-        overflow-x: auto !important; /* عمل شريط سحب أفقي للجدول لو الكلام كتير */
-        white-space: nowrap !important;
+    width: 94% !important; /* بيخلي الجدول مطاطي وبيديك مسافة 3% يمين و 3% شمال على الشاشات الكبيرة */
+    max-width: 1100px !important; /* العرض المثالي على الكمبيوتر عشان الجدول ميمطش بزيادة وشكله يبوظ */
+    margin: 25px auto !important; /* auto دي السحر اللي بيخلي الجدول يلقط نفسه في نص الشاشة بالظبط */
+    border-collapse: collapse;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* لمسة جمالية ظل خفيف للجدول */
+}
+
+/* ======================================================= */
+/* ثانياً: تظبيط الجدول والموقع بالكامل على الموبايل      */
+/* ======================================================= */
+@media (max-width: 768px) {
+    
+    /* 1. ضبط الحاوية الرئيسية للموقع لترك هوامش جانية متناسقة */
+    .main-wrapper, .container {
+        width: 94% !important; 
+        max-width: 100% !important;
+        margin: 10px auto !important; 
+        padding: 10px !important;
+        box-sizing: border-box !important;
     }
 
+    /* 2. حل مشكلة صورة القفل على الموبايل */
+    .lock-custom-img {
+        max-width: 85% !important;
+        height: auto !important;
+    }
+
+    /* 3. جعل الجدول مطاطي ومرن تماماً على الموبايل */
+    .grades-table {
+        display: block !important; /* ضروري جداً على الموبايل ل تفعيل السحب الأفقي */
+        width: 100% !important; /* يملا مساحة الحاوية المتاحة */
+        margin: 15px 0 !important;
+        overflow-x: auto !important; /* بيعمل شريط سحب (Scroll) أفقي ناعم لو الأعمدة كتير */
+        white-space: nowrap !important; /* بيمنع الكلام الصغير إنه ينزل تحت بعضه ويحافظ على تفرد الأعمدة */
+        -webkit-overflow-scrolling: touch; /* سحب سلس جداً بإصبع اليد على شاشات اللمس */
+    }
+
+    /* 4. ترييح خانات الجدول وتكبير الخط عشان يظهر بوضوح مع مقاس scale=0.7 */
     .grades-table th, .grades-table td {
-        padding: 8px 6px !important; 
-        font-size: 13px !important;
+        padding: 12px 10px !important; /* بيوسع الخانات عشان الطالب يشوف درجته بسهولة */
+        font-size: 15px !important; /* خط واضح ومناسب جداً للموبايل */
     }
 
-    /* 4. تنسيق قسم البحث على الموبايل */
+    /* 5. تنسيق قسم البحث وزرار الاستعلام على الموبايل */
     .search-section {
         grid-template-columns: 1fr !important;
         gap: 10px !important;
@@ -3500,7 +3541,6 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     }
 }
 </style>
-
 
 
 </body>
