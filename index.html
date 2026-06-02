@@ -8,7 +8,7 @@
 <meta property="og:title" content="بوابة نتائج معهد المطرية">
 <meta property="og:description" content="استعلم عن نتيجتك فوراً من الموقع الرسمي">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.1">
     <title>نتيجة معهد المطرية | البوابة الرسمية</title>
     <!-- الأيقونة الأساسية للمتصفحات ومحرك بحث جوجل (مع تصحيح النوع وتحديد المقاس) -->
 <link rel="icon" href="https://i.postimg.cc/zB47NkxQ/photo-5823574396516372238-y-(2).jpg" type="image/jpeg" sizes="96x96">
@@ -397,6 +397,18 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* ظل خفيف ومنظم يعطي عمقاً للمظهر */
     padding: 30px; /* مسافة داخلية مريحة لتباعد العناصر والجداول عن الحواف */
     box-sizing: border-box;
+}
+/* 1. إخفاء جملة جاري التحميل نهائياً من الشاشة */
+.last-update, #updateTimer {
+    display: none !important;
+}
+
+/* 2. تلوين الثلاث شرط وعدد الزوار باللون الأبيض في الوضع الليلي لضمان ظهورهم */
+[data-theme="dark"] .hamburger-btn,
+[data-theme="dark"] .hamburger-btn i,
+[data-theme="dark"] .visitor-counter {
+    color: #ffffff !important;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* توهج خفيف لزيادة الوضوح */
 }
     </style>
     
