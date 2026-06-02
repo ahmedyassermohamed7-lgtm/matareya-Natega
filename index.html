@@ -234,19 +234,20 @@
         /* تنسيق الجدول الجديد: خطوط سميكة وأوزان ثقيلة */
 /* تنسيق الجدول الجديد بالكامل */
 /* تنسيق الجدول الاحترافي الجديد */
+/* تنسيق الجدول الاحترافي الجديد */
 .grades-table { 
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 20px 0; 
     text-align: center;
-    border: 2.5px solid #1e293b !important; /* إطار خارجي سميك جداً */
+    border: 2.5px solid #1e293b !important; /* إطار خارجي ثقيل جداً */
     table-layout: auto !important; 
 }
 .grades-table th, .grades-table td { 
     padding: 15px 10px;
-    border: 2.5px solid #1e293b !important; /* نفس الإطار الخارجي بالضبط لتوحيد الثقل */
+    border: 2.5px solid #1e293b !important; /* تم توحيد الخطوط الداخلية مع الخارجية */
     color: #000 !important;
-    font-weight: bold; /* زيادة ثقل الكلام داخل الجدول */
+    font-weight: bold !important; /* زيادة ثقل الكلام */
 }
 .grades-table th { 
     background: #e2e8f0; /* التمييز والخلفية الخاصة بالعناوين (المادة، النهاية، درجتك، التقدير) */
@@ -3519,18 +3520,19 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
         -webkit-overflow-scrolling: touch;
     }
     
+    /* 3. جعل الجدول مطاطي ومرن ليحتوي الشاشة بالكامل بدون سحب */
     .grades-table {
-        display: table !important; /* إرجاع الجدول لطبيعته الهندسية لمنع التمدد العشوائي */
-        width: 100% !important;
-        min-width: 600px !important; /* عرض أدنى لضمان عدم انضغاط الكلام، سيظهر شريط سحب إذا كانت الشاشة أصغر */
+        display: table !important; /* إرجاع الجدول لطبيعته ليصبح مطاطياً */
+        width: 100% !important; 
         margin: 15px 0 !important;
-        white-space: nowrap !important;
+        white-space: normal !important; /* السطر السحري: يسمح للكلام الطويل بالنزول لسطر جديد بدل طرد الجدول للخارج */
+        word-wrap: break-word !important; 
     }
 
-    /* 4. ترييح خانات الجدول وتكبير الخط */
+    /* 4. ترييح خانات الجدول وضبط المقاسات لتكفي شاشة الموبايل */
     .grades-table th, .grades-table td {
-        padding: 12px 10px !important;
-        font-size: 16px !important; /* تكبير الخط قليلاً ليكون أوضح */
+        padding: 10px 5px !important; /* تقليل المسافات الجانبية قليلاً لتوفير مساحة للأعمدة الأربعة */
+        font-size: 14.5px !important; /* حجم خط ممتاز للقراءة ولا يكسر تصميم الموبايل */
     }
 
     /* 5. تنسيق قسم البحث وزرار الاستعلام على الموبايل */
