@@ -450,6 +450,17 @@ body {
     background-color: var(--box-bg) !important;
     border: 1px solid var(--border-color) !important;
 }
+/* كود سحري لإلغاء أي أمر قديم بيجبر زرار الوضع الليلي ينزل تحت */
+#sidebarThemeBtn {
+    position: static !important;
+    margin-top: 0 !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer;
+}
     </style>
     
 <body>
@@ -537,129 +548,62 @@ body {
         <div class="last-update" id="updateTimer">جاري التحميل...</div>
     </div>
 
-    <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+   <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
     <div id="mainSidebar" class="sidebar">
         <div class="sidebar-header">
             <button class="close-btn" onclick="toggleSidebar()">✖</button>
         </div>
+        
         <div class="profile-section">
             <div class="avatar-wrapper">
                 <img id="profileAvatar" src="a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg" alt="صورة الطالب">
                 <label for="imageUploader" class="edit-avatar-btn">✏️</label>
                 <input type="file" id="imageUploader" accept="image/*" style="display: none;" onchange="updateProfileImage(event)">
             </div>
-            <input type="text" id="profileName" class="profile-input name-input" placeholder="الاسم..." onchange="saveProfileData()">
+            <input type="text" id="profileName" class="profile-input name-input" placeholder="الاسم (مثال: مصطفى طه محمد)" onchange="saveProfileData()">
             <input type="email" id="profileEmail" class="profile-input email-input" placeholder="البريد الإلكتروني" onchange="saveProfileData()">
         </div>
+
         <div class="sidebar-menu">
-    <!-- 1. رابط الموقع الرسمي (حط لينك الموقع بدل الرابط اللي بين علامتين التنصيص) -->
-    <a href="https://www.facebook.com/share/g/17rds78RJN/" target="_blank" class="menu-item">
-        <span>🏛️</span> موقع المعهد الرسمي
-    </a>
-    
-    <a href="#" onclick="shareApp()" class="menu-item">
-        <span>📤</span> مشاركة التطبيق
-    </a>
-    
-    <!-- 2. رابط الواتساب (حط رقمك بعد wa.me/ مع كود الدولة 20 لمصر) -->
-    <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
-        <span>💬</span> تواصل مع مسؤول الموقع
-    </a>
-    
-    <a href="#" onclick="showAppInfo()" class="menu-item">
-        <span>ℹ️</span> حول التطبيق
-    </a>
-</div>
-        <div class="sidebar-footer">
-            <button id="sidebarThemeBtn" class="menu-item theme-toggle-btn" onclick="toggleTheme()" style="justify-content: flex-end; padding-right: 25px;">
-                <span id="themeText">الوضع الليلي</span> <span id="themeIcon" style="margin-left: 10px;">🌙</span>
-            </button>
+            <a href="https://www.facebook.com/eihab25/?locale=ar_AR" target="_blank" class="menu-item">
+                <span>🏛️</span> موقع المعهد الرسمي
+            </a>
+            
+            <a href="#" onclick="shareApp()" class="menu-item">
+                <span>📤</span> مشاركة التطبيق
+            </a>
+            
+            <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
+                <span>💬</span> تواصل مع مسؤول الموقع
+            </a>
+            
+            <a href="javascript:void(0)" id="sidebarThemeBtn" class="menu-item" onclick="toggleTheme()">
+                <span>🌙</span> <span id="themeText" style="margin-right: 15px;">الوضع الليلي</span>
+            </a>
+            
+            <a href="#" onclick="showAppInfo()" class="menu-item">
+                <span>ℹ️</span> حول التطبيق
+            </a>
         </div>
     </div>
 
-    <!-- نافذة "حول التطبيق" -->
-<div id="appInfoModal" class="modal-overlay" onclick="closeAppInfo(event)">
-    <div class="modal-card info-card">
-        <h2 style="color: var(--primary-blue); margin-top: 0;">ℹ️ حول بوابة النتائج</h2>
-        
-        <p style="font-size: 15px; line-height: 1.8; text-align: justify; direction: rtl;">
-            تم تصميم وتطوير هذه البوابة بكل فخر لخدمة صرح تعليمي عظيم، <strong>معهد فني صناعي المطرية</strong>. 
-            تهدف البوابة إلى توفير أسرع وأدق تجربة للطلاب للاستعلام عن نتائجهم بكل سهولة وخصوصية.
-            <br><br>
-            👨‍💻 <strong>تطوير وتصميم:</strong> المهندس أحمد ياسر محمد (خريج قسم تشغيل معادن).<br>
-            تم بناء هذا النظام باستخدام أحدث تقنيات الويب لضمان أمان بياناتكم وسرعة الوصول إليها.
-        </p>
-        
-        <div style="margin-top: 15px; padding: 10px; background: var(--row-alt); border-radius: 8px; font-weight: bold; color: var(--gold); border: 1px solid var(--border-color);">
-            الإصدار: 2.0.1 | دفعة 2026
+    <div id="appInfoModal" class="modal-overlay" onclick="closeAppInfo(event)">
+        <div class="modal-card info-card">
+            <h2 style="color: var(--primary-blue); margin-top: 0;">ℹ️ حول بوابة النتائج</h2>
+            <p style="font-size: 15px; line-height: 1.8; text-align: justify; direction: rtl;">
+                تم تصميم وتطوير هذه البوابة بكل فخر لخدمة صرح تعليمي عظيم، <strong>معهد فني صناعي المطرية</strong>. 
+                تهدف البوابة إلى توفير أسرع وأدق تجربة للطلاب للاستعلام عن نتائجهم بكل سهولة وخصوصية.
+                <br><br>
+                👨‍💻 <strong>تطوير وتصميم:</strong> المهندس أحمد ياسر محمد (خريج قسم تشغيل معادن).<br>
+                تم بناء هذا النظام باستخدام أحدث تقنيات الويب لضمان أمان بياناتكم وسرعة الوصول إليها.
+            </p>
+            <div style="margin-top: 15px; padding: 10px; background: var(--row-alt); border-radius: 8px; font-weight: bold; color: var(--gold); border: 1px solid var(--border-color);">
+                الإصدار: 2.0.1 | دفعة 2026
+            </div>
+            <button onclick="closeAppInfo()" class="btn-start" style="width: 100%; margin-top: 15px; padding: 10px;">إغلاق الواجهة</button>
         </div>
-        
-        <button onclick="closeAppInfo()" class="btn-start" style="width: 100%; margin-top: 15px; padding: 10px;">إغلاق الواجهة</button>
     </div>
-</div>
-    
-
-<!-- خلفية شفافة عند فتح القائمة -->
-<div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
-<!-- القائمة الجانبية -->
-<!-- القائمة الجانبية -->
-<div id="mainSidebar" class="sidebar">
-    <div class="sidebar-header">
-        <button class="close-btn" onclick="toggleSidebar()">✖</button>
-    </div>
-    
-    <div class="profile-section">
-        <div class="avatar-wrapper">
-            <img id="profileAvatar" src="a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg" alt="صورة الطالب">
-            <label for="imageUploader" class="edit-avatar-btn">✏️</label>
-            <input type="file" id="imageUploader" accept="image/*" style="display: none;" onchange="updateProfileImage(event)">
-        </div>
-        <input type="text" id="profileName" class="profile-input name-input" placeholder="الاسم (مثال: مصطفى طه محمد)" onchange="saveProfileData()">
-        <input type="email" id="profileEmail" class="profile-input email-input" placeholder="البريد الإلكتروني" onchange="saveProfileData()">
-    </div>
-
-    <div class="sidebar-menu">
-        <a href="https://www.facebook.com/eihab25/?locale=ar_AR" target="_blank" class="menu-item">
-            <span>🏛️</span> موقع المعهد الرسمي
-        </a>
-        
-        <a href="#" onclick="shareApp()" class="menu-item">
-            <span>📤</span> مشاركة التطبيق
-        </a>
-        
-        <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
-            <span>💬</span> تواصل مع مسؤول الموقع
-        </a>
-        
-        <!-- تم نقل زر الوضع الليلي هنا تحت تواصل مع مسؤول الموقع مباشرة -->
-        <button id="sidebarThemeBtn" class="menu-item theme-toggle-btn" onclick="toggleTheme()">
-            <span>🌙</span> <span id="themeText" style="margin-right: 15px;">الوضع الليلي</span>
-        </button>
-        
-        <a href="#" onclick="showAppInfo()" class="menu-item">
-            <span>ℹ️</span> حول التطبيق
-        </a>
-    </div>
-</div>
-
-<!-- نافذة "حول التطبيق" -->
-<div id="appInfoModal" class="modal-overlay" onclick="closeAppInfo(event)">
-    <div class="modal-card info-card">
-        <h2 style="color: var(--primary-blue); margin-top: 0;">ℹ️ حول بوابة النتائج</h2>
-        <p style="font-size: 15px; line-height: 1.8; text-align: justify;">
-            هذه البوابة هي نظام استعلام ذكي وسريع تم تصميمه خصيصاً لطلاب المعهد لتوفير تجربة سلسة في الوصول إلى النتائج الدراسية. 
-            <br><br>
-            <strong>✨ مميزات النظام:</strong><br>
-            - سرعة فائقة في جلب البيانات من الخوادم السحابية.<br>
-            - حساب دقيق للنسب المئوية والتقديرات التراكمية.<br>
-            - واجهة مستخدم تفاعلية تدعم الوضع الليلي لراحة العين.<br>
-            - حماية كاملة لبيانات الطلاب ودرجاتهم.
-        </p>
-        <div style="margin-top: 15px; font-weight: bold; color: var(--gold);">الإصدار: 2.0.1 | دفعة 2026</div>
-        <button onclick="closeAppInfo()" class="btn-start" style="width: 100%; margin-top: 15px; padding: 10px;">إغلاق</button>
-    </div>
-</div>
         <div class="last-update" id="updateTimer">جاري التحميل...</div>
         
     </div>
