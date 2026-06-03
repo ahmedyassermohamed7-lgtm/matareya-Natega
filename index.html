@@ -436,14 +436,6 @@ body {
     background-color: var(--box-bg) !important;
     border: 1px solid var(--border-color) !important;
 }
-/* ضبط مقاس الموقع على شاشات الكمبيوتر فقط */
-@media (min-width: 769px) {
-    #capture, .container, .main-wrapper {
-        max-width: 850px !important; /* ده اللي هيلم الموقع من اليمين والشمال */
-        margin: 30px auto !important; /* ده اللي هيوسطنه في نص الشاشة */
-        border-radius: 15px !important;
-    }
-}
     </style>
     
 <body>
@@ -526,7 +518,7 @@ body {
 
     <div class="top-bar">
         <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
-        
+        <div class="last-update" id="updateTimer">جاري التحميل...</div>
     </div>
 
     <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
@@ -3595,6 +3587,69 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     margin-bottom: -15px;
     z-index: 3;
     font-family: 'Cairo', sans-serif;
+}
+/* =======================================================
+   كود خاص بضبط عرض الكمبيوتر ليصبح طولي واحترافي 
+   دون التأثير تماماً على نسخة الهواتف المحمولة
+   ======================================================= */
+@media (min-width: 768px) {
+    /* أولاً: تحويل الخلفية العامة للكمبيوتر لتكون مريحة وتوسيط الموقع */
+    body {
+        background-color: #e5e7eb !important; /* لون رمادي خفيف للخلفية العامة للكمبيوتر */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+
+    /* ثانياً: تحجيم الإطار الرئيسي للموقع ليصبح طولي (مثل الموبايل) */
+    .main-wrapper {
+        max-width: 480px !important; /* يمكنك تغيير 480 إلى 550 إذا أردته أعرض قليلاً */
+        width: 100% !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        min-height: 85vh;
+        max-height: 95vh;
+        overflow-y: auto; /* إظهار سكرول داخلي مرن إذا كانت البيانات طويلة */
+        border: 1px solid var(--border-color);
+        border-radius: 24px !important; /* حواف دائرية أكثر احترافية للكمبيوتر */
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important; /* ظل عميق يعطي مظهر كارت عائم */
+    }
+
+    /* ثالثاً: إجبار جميع الشاشات الممتدة (الترحيب، الدخول، العداد، الصيانة) على الالتزام بأبعاد الكارت الطولي */
+    #welcomeScreen, 
+    #authScreen, 
+    #countdownOverlay, 
+    #lockdownOverlay, 
+    #siteLoader {
+        position: absolute !important; /* تحويلها من fixed إلى absolute لتتقيد بالـ main-wrapper */
+        width: 100% !important;
+        height: 100% !important;
+        inset: 0 !important;
+        border-radius: 24px !important;
+    }
+
+    /* رابعاً: ضبط القائمة الجانبية (الثلاث شرط) لتفتح داخل الإطار الطولي فقط ولا تخرج عنه */
+    .sidebar {
+        position: absolute !important;
+        height: 100% !important;
+        right: -320px;
+    }
+    .sidebar.active {
+        right: 0 !important;
+    }
+    .sidebar-overlay {
+        position: absolute !important;
+        border-radius: 24px;
+    }
+
+    /* خامساً: ضبط النوافذ المنبثقة (مثل نافذة حول التطبيق والشكاوى) لتتوسط الإطار الطولي */
+    .modal-overlay, 
+    #photoModal {
+        position: absolute !important;
+        border-radius: 24px;
+    }
 }
 </style>
 
