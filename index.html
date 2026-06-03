@@ -603,6 +603,7 @@ body {
 <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <!-- القائمة الجانبية -->
+<!-- القائمة الجانبية -->
 <div id="mainSidebar" class="sidebar">
     <div class="sidebar-header">
         <button class="close-btn" onclick="toggleSidebar()">✖</button>
@@ -610,13 +611,10 @@ body {
     
     <div class="profile-section">
         <div class="avatar-wrapper">
-            <!-- الصورة الافتراضية المحددة -->
             <img id="profileAvatar" src="a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg" alt="صورة الطالب">
             <label for="imageUploader" class="edit-avatar-btn">✏️</label>
             <input type="file" id="imageUploader" accept="image/*" style="display: none;" onchange="updateProfileImage(event)">
         </div>
-        
-        <!-- حقول الاسم والبريد قابلة للتعديل -->
         <input type="text" id="profileName" class="profile-input name-input" placeholder="الاسم (مثال: مصطفى طه محمد)" onchange="saveProfileData()">
         <input type="email" id="profileEmail" class="profile-input email-input" placeholder="البريد الإلكتروني" onchange="saveProfileData()">
     </div>
@@ -625,21 +623,23 @@ body {
         <a href="https://www.facebook.com/eihab25/?locale=ar_AR" target="_blank" class="menu-item">
             <span>🏛️</span> موقع المعهد الرسمي
         </a>
+        
         <a href="#" onclick="shareApp()" class="menu-item">
             <span>📤</span> مشاركة التطبيق
         </a>
+        
         <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
-    <span>💬</span> تواصل مع مسؤول الموقع
-</a>
+            <span>💬</span> تواصل مع مسؤول الموقع
+        </a>
+        
+        <!-- تم نقل زر الوضع الليلي هنا تحت تواصل مع مسؤول الموقع مباشرة -->
+        <button id="sidebarThemeBtn" class="menu-item theme-toggle-btn" onclick="toggleTheme()">
+            <span>🌙</span> <span id="themeText" style="margin-right: 15px;">الوضع الليلي</span>
+        </button>
+        
         <a href="#" onclick="showAppInfo()" class="menu-item">
             <span>ℹ️</span> حول التطبيق
         </a>
-    </div>
-
-    <div class="sidebar-footer">
-        <button class="menu-item theme-toggle-btn" onclick="toggleTheme()">
-            <span>🌙</span> الوضع الليلي
-        </button>
     </div>
 </div>
 
