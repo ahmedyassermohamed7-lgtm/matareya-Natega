@@ -461,6 +461,37 @@ body {
     align-items: center !important;
     cursor: pointer;
 }
+/* تنسيق العلامة المائية لجعلها في منتصف النتيجة تماماً */
+.result-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px; /* يمكنك تكبير أو تصغير حجم اللوجو من هنا */
+    height: auto;
+    opacity: 0.07; /* درجة الشفافية (7%) لضمان وضوح كلام النتيجة وعدم التشويش عليه */
+    z-index: 1; /* طبقة خلفية */
+    pointer-events: none; /* تمنع التداخل مع الماوس أو اللمس */
+}
+
+/* تجهيز حاوية النتيجة لـ طبقة العلامة المائية */
+#capture {
+    position: relative;
+    z-index: 2;
+    overflow: hidden; /* لمنع خروج اللوجو عن إطار الكارت */
+}
+
+/* رفع محتوى النتيجة والجداول فوق اللوجو ليكونوا في الواجهة */
+.student-header, 
+.table-responsive, 
+#statusBox, 
+.chart-container, 
+.totals-box, 
+#finalStatusBox, 
+#qrcode {
+    position: relative;
+    z-index: 3; /* أعلى من طبقة اللوجو */
+}
     </style>
     
 <body>
@@ -649,6 +680,7 @@ body {
 
     <div id="resultArea">
         <div id="capture">
+          <img src="https://i.postimg.cc/zB47NkxQ/photo-5823574396516372238-y-(2).jpg" class="result-watermark" alt="شعار المعهد">
             <div class="student-header">
                 <div class="std-meta">
                     <div id="stdName" style="font-weight: bold; font-size: 22px; color: var(--primary-blue);"></div>
