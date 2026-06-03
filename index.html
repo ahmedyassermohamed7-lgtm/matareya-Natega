@@ -3657,20 +3657,31 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 /* --- التعديل النهائي لضبط المسافات وتقريب العناصر من الشبكة العنكبوتية بناءً على طلبك --- */
 
 /* 1. تنزيل الجزء العلوي بالكامل (الاسم والتاج والبيانات والجدول والرسالة والحالة) لأسفل وتقريبهم من الشبكة */
-.student-header {
-    margin-top: 60px !important; 
+/* --- التعديل النهائي لضبط المسافات حول الشبكة العنكبوتية وتغطية الفراغات --- */
+
+/* 1. إنزال كل العناصر العلوية لأسفل (الاسم، التاج، الجدول، وصندوق الحالة) لتغطية الفراغ فوق الشبكة */
+.student-header, 
+.table-responsive, 
+#statusBox {
+    position: relative !important;
+    top: 35px !important; /* إذا أردت إنزالهم أكثر لتقريبهم من الشبكة، اجعلها 45px أو 50px */
 }
 
-/* 2. تثبيت الشبكة العنكبوتية تماماً مكانها فوق اللوجو وسحب عناصر المجاميع السفلية لأعلى */
+/* 2. ضمان ثبات الشبكة العنكبوتية تماماً في مكانها الأصلي السنتر فوق اللوجو وبدون أي زحزحة */
 .chart-container {
-    /* هذه القيمة (-40px) تلغي تماماً نزول الـ 40 بكسل الفوقية، مما يضمن ثبات الشبكة في مكانها الأصلي بالمللي فوق العلامة المائية */
-    margin-top: -40px !important; 
-    
-    /* هذه القيمة تسحب كل ما هو أسفل الشبكة (المجاميع وحالة النجاح والأزرار) لأعلى باتجاه الشبكة لتقليص المساحة الفارغة تحتها */
-    margin-bottom: -60px !important; 
-    
-    position: relative;
-    z-index: 1;
+    position: relative !important;
+    top: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    z-index: 5 !important;
+}
+
+/* 3. سحب كل العناصر السفلية لأعلى (صندوق المجاميع والتوقيعات) لتغطية الفراغ أسفل الشبكة */
+.totals-box,
+.signatures,
+.signature-section { 
+    position: relative !important;
+    top: -35px !important; /* إذا أردت سحبهم لأعلى أكثر ليقتربوا من الشبكة، اجعلها -45px أو -50px */
 }
 </style>
 
