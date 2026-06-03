@@ -20,6 +20,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+      /* تنسيق رسالة الخطأ في شاشة الدخول لتطابق شكل رسايل النتيجة الحمراء */
+.login-error-alert {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease-in-out;
+}
       /* زر الثلاث شرط */
 .hamburger-btn {
     background: transparent;
@@ -497,7 +511,9 @@ body {
         <input type="email" id="userEmail" placeholder="البريد الإلكتروني" required>
         <input type="password" id="userPassword" placeholder="أدخل كلمة السر (أو قم بإنشاء واحدة جديدة)" required>
         <button onclick="loginUser()">دخول للنظام</button>
-        <p id="loginError" style="color: var(--danger); font-size: 13px; display: none; margin-top: 10px; font-weight: bold;"></p>
+        
+        <div id="loginError" class="login-error-alert" style="display: none;"></div>
+        
     </div>
 </div>
 <div id="welcomeScreen">
@@ -1495,40 +1511,78 @@ window.onload = function() {
 
 // 1. نظام تسجيل الدخول مع التحقق القوي
 function loginUser() {
-    const emailInput = document.getElementById('userEmail') ? document.getElementById('userEmail').value.trim() : '';
-    const passInput = document.getElementById('userPassword') ? document.getElementById('userPassword').value.trim() : '';
+    const emailField = document.getElementById('userEmail');
+    const passField = document.getElementById('userPassword');
+    const emailInput = emailField ? emailField.value.trim() : '';
+    const passInput = passField ? passField.value.trim() : '';
     const errorMsg = document.getElementById('loginError');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
+    // إخفاء رسالة الخطأ في البداية عشان لو بيعمل محاولة جديدة
+    if(errorMsg) errorMsg.style.display = "none";
+
+    // 1. التأكد إن الخانات مش فاضية
     if (!emailInput || !passInput) {
-        if(errorMsg) { errorMsg.innerText = "⚠️ يرجى إدخال البريد وكلمة السر."; errorMsg.style.display = "block"; }
-        return;
-    }
-    if (!emailRegex.test(emailInput)) {
-        if(errorMsg) { errorMsg.innerText = "❌ البريد غير صحيح. أدخل بريد حقيقي."; errorMsg.style.display = "block"; }
+        if(errorMsg) { 
+            errorMsg.innerHTML = "⚠️ يرجى إدخال البريد الإلكتروني وكلمة السر معاً."; 
+            errorMsg.style.display = "block"; 
+        }
         return;
     }
 
-    if(errorMsg) errorMsg.style.display = "none";
+    // 2. التحقق من صيغة البريد الإلكتروني
+    if (!emailRegex.test(emailInput)) {
+        if(errorMsg) { 
+            errorMsg.innerHTML = "❌ البريد الإلكتروني خاطئ، يرجى التحقق من كتابته بشكل صحيح."; 
+            errorMsg.style.display = "block"; 
+        }
+        // مسح البريد فقط والاحتفاظ بكلمة السر، مع التركيز على خانة البريد
+        if(emailField) {
+            emailField.value = '';
+            emailField.focus();
+        }
+        return;
+    }
+
     localStorage.setItem('savedEmail', emailInput);
     if(document.getElementById('profileEmail')) document.getElementById('profileEmail').value = emailInput;
 
+    // تجهيز وإظهار رسالة التحميل
     if(!document.getElementById('loadingMsg')) {
-        document.getElementById('authScreen').innerHTML += "<br><div id='loadingMsg'><p style='margin-bottom: 5px; font-size: 18px; font-weight: bold;'>جاري التحقق من البيانات...</p><p style='margin-top: 0; font-size: 14px; color: #ddd;'>الرجاء الانتظار</p></div>";
+        const loadingHtml = "<div id='loadingMsg' style='margin-top:15px;'><p style='margin-bottom: 5px; font-size: 16px; font-weight: bold; color: var(--primary-blue);'>جاري التحقق من البيانات...</p><p style='margin-top: 0; font-size: 13px; color: #6b7280;'>الرجاء الانتظار</p></div>";
+        document.querySelector('.auth-box').insertAdjacentHTML('beforeend', loadingHtml);
     }
 
-    // 🔥 الخطوة الأولى: فحص كلمة السر وتسجيل الحساب 🔥
+    // تعطيل الخانات والزرار مؤقتاً عشان البيانات تفضل ظاهرة وماتتمسحش والطالب بينتظر
+    const loginBtn = document.querySelector('.auth-box button');
+    if(emailField) emailField.disabled = true;
+    if(passField) passField.disabled = true;
+    if(loginBtn) loginBtn.disabled = true;
+
+    // 🔥 فحص كلمة السر وتسجيل الحساب 🔥
     fetch(`${SCRIPT_URL}?action=loginStudent&email=${encodeURIComponent(emailInput)}&pass=${encodeURIComponent(passInput)}`)
         .then(response => response.json())
         .then(authData => {
+            // إعادة تفعيل الخانات والزرار بعد استلام الرد
+            if(emailField) emailField.disabled = false;
+            if(passField) passField.disabled = false;
+            if(loginBtn) loginBtn.disabled = false;
+
             if (!authData.success) {
-                // كلمة السر غلط
+                // كلمة السر غلط: نعرض الرسالة الحمراء المطلوبة
                 if(errorMsg) { 
-                    errorMsg.innerHTML = `❌ ${authData.message} <br><span style='font-size: 13px; color: #4b5563; display: block; margin-top: 8px; font-weight: normal;'>في حالة نسيان كلمة السر برجاء التواصل مع <a href="https://wa.me/201554580557" target="_blank" style="color: #1d4ed8; text-decoration: underline;">مسؤول الموقع</a></span>`; 
+                    errorMsg.innerHTML = `❌ كلمة المرور خاطئة، يرجى التحقق من كلمة المرور.<br><span style='font-size: 12px; color: #991b1b; display: block; margin-top: 5px; font-weight: normal;'>في حالة نسيان كلمة السر برجاء التواصل مع <a href="https://wa.me/201554580557" target="_blank" style="color: #991b1b; text-decoration: underline; font-weight: bold;">مسؤول الموقع</a></span>`; 
                     errorMsg.style.display = "block"; 
                 }
+                
+                // مسح خانة كلمة السر فقط والاحتفاظ بالإيميل، مع التركيز على خانة السر
+                if(passField) {
+                    passField.value = '';
+                    passField.focus();
+                }
+
                 if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
-                return; // نوقف الكود هنا ومندخلوش
+                return; // نوقف الكود هنا
             }
 
             // 🔥 الخطوة التانية: لو الباسورد صح، نكمل تحميل النتيجة عادي 🔥
@@ -1543,6 +1597,7 @@ function loginUser() {
                         return;
                     } else if (data.isPublished === false || data.isPublished === "false") {
                         showToast("⚠️ النتيجة في قائمة الانتظار", "#ef4444");
+                        // ... باقي الكود الخاص بك يكمل هنا بشكل طبيعي ...
                         if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').remove();
                         return;
                     }
