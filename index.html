@@ -36,6 +36,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+      /* أنيميشن توهج السنابل الناري */
+@keyframes goldenFireGlow {
+    0%, 100% { filter: drop-shadow(0 0 8px #ffaa00) drop-shadow(0 0 15px #ff4500); }
+    50% { filter: drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 25px #ff8c00); }
+}
+
+/* كلاس مخصص للسنابل */
+.fire-wreath {
+    animation: goldenFireGlow 1.5s infinite alternate ease-in-out !important;
+    z-index: 1;
+    position: relative;
+}
+
+/* كلاس مخصص للكلمة عشان تبقى بارزة وفوق السنابل */
+.wreath-hug-text {
+    z-index: 5;
+    position: relative;
+    text-shadow: 0 0 10px #fbbd08, 0 0 20px #ff8c00;
+}
       /* تنسيق رسالة الخطأ في شاشة الدخول لتطابق شكل رسايل النتيجة الحمراء */
 .login-error-alert {
     background: #fee2e2;
@@ -2095,11 +2114,13 @@ applySavedTheme();
             
             <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; margin: 5px 0; font-family: 'Cairo', sans-serif; display: inline-block; animation: nameZoomGlow 2s infinite ease-in-out; align-self: center;">${student.name}</div>
             
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin: 15px 0; align-self: center;">
-                <img src="https://i.postimg.cc/sgMtdPgp/Gemini-Generated-Image-p08yz7p08yz7p08y.png" style="width: 48px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
-                <span style="font-size: 24px; font-weight: 900; font-family: 'Cairo', sans-serif; display: inline-block; animation: instTextFire 1.5s infinite ease-in-out;">الترتيب المعهد #1</span>
-                <img src="https://i.postimg.cc/4xFspNmv/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" style="width: 48px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
-            </div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 0px; margin: 15px 0; align-self: center;">
+    <img src="https://i.postimg.cc/sgMtdPgp/Gemini-Generated-Image-p08yz7p08yz7p08y.png" class="fire-wreath" style="width: 105px; height: auto; margin-left: -25px;">
+    
+    <span class="wreath-hug-text" style="font-size: 40px; font-weight: 900; font-family: 'Cairo', sans-serif; display: inline-block; animation: instTextFire 1.5s infinite ease-in-out; padding: 0 5px;">الترتيب المعهد #1</span>
+    
+    <img src="https://i.postimg.cc/4xFspNmv/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" class="fire-wreath" style="width: 105px; height: auto; margin-right: -25px;">
+</div>
 
             <div style="width: 100%; text-align: right; margin-top: 10px;">
                 <div id="stdDetails" style="font-size: 14px; margin-bottom: 5px; font-weight: bold;">${student.dept} | ${student.year} | ${student.sem}</div>
