@@ -481,7 +481,7 @@ body {
 /* تنسيق العلامة المائية لجعلها في منتصف النتيجة أفقياً ومرفوعة لأعلى قليلاً */
 .result-watermark {
     position: absolute;
-    top: 43%; /* تم تغيير هذه القيمة لرفع اللوجو لأعلى بدل 50% */
+    top: 45%; /* تم تغيير هذه القيمة لرفع اللوجو لأعلى بدل 50% */
     left: 50%; /* هذه القيمة تضمن بقاء اللوجو في المنتصف أفقياً تماماً */
     transform: translate(-50%, -50%);
     width: 720px; /* يمكنك تكبير أو تصغير حجم اللوجو من هنا */
@@ -602,6 +602,34 @@ body {
     font-size: 15px !important;
     font-weight: 900 !important;
     border: 2px solid transparent !important;
+}
+/* حركة التاج (يميل يمين وشمال بسلاسة من منتصفه) */
+@keyframes crownTilt {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(-12deg); }
+    75% { transform: translateX(-50%) rotate(12deg); }
+}
+
+/* حركة اسم الأول على المعهد (تكبير وتوهج ذهبي) */
+@keyframes nameZoomGlow {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
+    50% { transform: scale(1.05); text-shadow: 0 0 20px #ffaa00, 0 0 30px #ffaa00; }
+}
+
+/* حركة جملة "الترتيب المعهد #1" (توهج ناري بدون السنابل) */
+@keyframes instTextFire {
+    0%, 100% { color: #ffd700; text-shadow: 0 0 10px #ff4500; transform: scale(1); }
+    50% { color: #ffffff; text-shadow: 0 0 20px #ffaa00, 0 0 30px #ff4500; transform: scale(1.1); }
+}
+
+/* حركة الترتيب على الشعبة (نار خضراء مميزة) */
+@keyframes deptFireBadge {
+    0%, 100% { box-shadow: 0 0 10px #22c55e, inset 0 0 5px #22c55e; border-color: #22c55e; color: #fff; background: #166534; }
+    50% { box-shadow: 0 0 20px #4ade80, inset 0 0 15px #4ade80; border-color: #4ade80; color: #fff; background: #15803d; transform: scale(1.05); }
+}
+.fire-dept-rank {
+    animation: deptFireBadge 1.5s infinite ease-in-out !important;
+    transition: all 0.3s;
 }
     </style>
     
@@ -2007,44 +2035,41 @@ applySavedTheme();
     if (rankAll === 1 && status !== "راسب") {
         // --- الأول على المعهد ---
         metaContainer.style.width = "100%";
-        metaContainer.style.textAlign = "center";
-        metaContainer.style.alignItems = "center";
+        metaContainer.style.textAlign = "right"; // تم التعديل لليمين
+        metaContainer.style.alignItems = "flex-start"; // تم التعديل لليمين
         
-        // (حل المشكلة 3: إظهار الترتيب على المعهد والشعبة ورجوعها زي القديم)
-        rankBadgesContainer.style.display = "flex"; 
-
+        rankBadgesContainer.style.display = "flex";
+        
         metaContainer.innerHTML = `
-            <div style="position: relative; margin-bottom: 25px; margin-top: 30px;">
-                <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="name-inline-crown" style="position: absolute; top: -55px; left: 50%; transform: translateX(-50%); width: 85px; z-index: 5; animation: goldPulse 2s infinite;" alt="تاج">
+            <div style="position: relative; width: 120px; margin-bottom: 25px; margin-top: 30px; align-self: center;">
+                <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 85px; z-index: 5; animation: crownTilt 2s ease-in-out infinite;" alt="تاج">
                 
-                <div style="color: #ffd700; width: 120px; height: 120px; margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); position: relative;">
+                <div style="color: #ffd700; width: 120px; height: 120px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);">
                     ${avatarHTML}
                 </div>
             </div>
             
-            <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); margin: 5px 0; font-family: 'Cairo', sans-serif;">${student.name}</div>
+            <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; margin: 5px 0; font-family: 'Cairo', sans-serif; display: inline-block; animation: nameZoomGlow 2s infinite ease-in-out; align-self: center;">${student.name}</div>
             
-            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0;">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0; align-self: center;">
                 <img src="https://i.postimg.cc/hPW6q0gP/Gemini-Generated-Image-p08yz7p08yz7p08y.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
-                <span style="font-size: 18px; font-weight: 900; color: #ffd700; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);">الترتيب المعهد #1</span>
+                <span style="font-size: 18px; font-weight: 900; font-family: 'Cairo', sans-serif; display: inline-block; animation: instTextFire 1.5s infinite ease-in-out;">الترتيب المعهد #1</span>
                 <img src="https://i.postimg.cc/BnCdpPrF/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
             </div>
 
-            <div id="stdDetails" style="font-size: 14px; margin-bottom: 5px;">${student.dept} | ${student.year} | ${student.sem}</div>
-            <div id="stdStatusBadge" class="${badgeClass}">الحالة : ${currentStatus}</div>
+            <div style="width: 100%; text-align: right; margin-top: 10px;">
+                <div id="stdDetails" style="font-size: 14px; margin-bottom: 5px; font-weight: bold;">${student.dept} | ${student.year} | ${student.sem}</div>
+                <div id="stdStatusBadge" class="${badgeClass}">الحالة : ${currentStatus}</div>
+            </div>
         `;
-        // إضافة التوهج للاسم
-document.getElementById('stdName').classList.add('golden-legend-name');
 
-// إضافة توهج النار لبادج ترتيب المعهد (بنجيب الأب بتاع رقم الترتيب)
-document.getElementById('stdRankAll').parentElement.classList.add('fire-rank-badge');
-    } else {
         // --- الأول على الشعبة + الطالب العادي ---
-        metaContainer.style.width = "auto";
+       } else {
+        // --- الأول على الشعبة + الطالب العادي ---
+        metaContainer.style.width = "100%";
         metaContainer.style.textAlign = "right";
         metaContainer.style.alignItems = "flex-start";
         
-        // إظهار الترتيب العادي
         rankBadgesContainer.style.display = "flex"; 
 
         metaContainer.innerHTML = `
@@ -2052,14 +2077,22 @@ document.getElementById('stdRankAll').parentElement.classList.add('fire-rank-bad
                 ${avatarHTML}
             </div>
             <div id="stdName" style="${deptFirstStyle} margin-bottom: 5px;">${student.name}</div>
-            <div id="stdDetails" style="font-size: 14px;">${student.dept} | ${student.year} | ${student.sem}</div>
-            <div id="stdStatusBadge" class="${badgeClass}" style="margin-top: 8px;">الحالة : ${currentStatus}</div>
+            
+            <div style="width: 100%; text-align: right; margin-top: 5px;">
+                <div id="stdDetails" style="font-size: 14px; margin-bottom: 5px; font-weight: bold;">${student.dept} | ${student.year} | ${student.sem}</div>
+                <div id="stdStatusBadge" class="${badgeClass}" style="margin-top: 8px;">الحالة : ${currentStatus}</div>
+            </div>
         `;
-        document.getElementById('stdName').classList.remove('golden-legend-name');
-document.getElementById('stdRankAll').parentElement.classList.remove('fire-rank-badge');
     }
     // ---------------------------------------------------------
     // 4. مسح ورسم الجدول وتحديد المواد (وحساب هل يوجد مواد ضعيف أم لا)
+    // تشغيل التوهج الأخضر لترتيب الشعبة إذا كان الأول
+    const rankDeptElement = document.getElementById('stdRankDept');
+    if (rankDeptElement && rankDept === 1 && status !== "راسب") {
+        rankDeptElement.parentElement.classList.add('fire-dept-rank');
+    } else if (rankDeptElement) {
+        rankDeptElement.parentElement.classList.remove('fire-dept-rank');
+    }
     const tbody = document.getElementById('gradesBody');
     tbody.innerHTML = "";
     
