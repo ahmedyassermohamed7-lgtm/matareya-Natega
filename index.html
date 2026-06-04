@@ -2051,10 +2051,10 @@ applySavedTheme();
             
             <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; margin: 5px 0; font-family: 'Cairo', sans-serif; display: inline-block; animation: nameZoomGlow 2s infinite ease-in-out; align-self: center;">${student.name}</div>
             
-            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0; align-self: center;">
-                <img src="https://i.postimg.cc/hPW6q0gP/Gemini-Generated-Image-p08yz7p08yz7p08y.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
-                <span style="font-size: 18px; font-weight: 900; font-family: 'Cairo', sans-serif; display: inline-block; animation: instTextFire 1.5s infinite ease-in-out;">الترتيب المعهد #1</span>
-                <img src="https://i.postimg.cc/BnCdpPrF/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin: 15px 0; align-self: center;">
+                <img src="https://i.postimg.cc/hPW6q0gP/Gemini-Generated-Image-p08yz7p08yz7p08y.png" style="width: 48px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+                <span style="font-size: 24px; font-weight: 900; font-family: 'Cairo', sans-serif; display: inline-block; animation: instTextFire 1.5s infinite ease-in-out;">الترتيب المعهد #1</span>
+                <img src="https://i.postimg.cc/BnCdpPrF/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" style="width: 48px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
             </div>
 
             <div style="width: 100%; text-align: right; margin-top: 10px;">
@@ -2092,6 +2092,13 @@ applySavedTheme();
         rankDeptElement.parentElement.classList.add('fire-dept-rank');
     } else if (rankDeptElement) {
         rankDeptElement.parentElement.classList.remove('fire-dept-rank');
+    }
+    // تشغيل التوهج الناري لترتيب المعهد الأساسي
+    const rankAllElement = document.getElementById('stdRankAll');
+    if (rankAllElement && rankAll === 1 && status !== "راسب") {
+        rankAllElement.parentElement.classList.add('fire-rank-badge');
+    } else if (rankAllElement) {
+        rankAllElement.parentElement.classList.remove('fire-rank-badge');
     }
     const tbody = document.getElementById('gradesBody');
     tbody.innerHTML = "";
