@@ -37,23 +37,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       /* أنيميشن توهج السنابل الناري */
+/* أنيميشن توهج السنابل الناري (اللون الذهبي الصافي بدلاً من البرتقالي/الأحمر) */
 @keyframes goldenFireGlow {
-    0%, 100% { filter: drop-shadow(0 0 8px #ffaa00) drop-shadow(0 0 15px #ff4500); }
-    50% { filter: drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 25px #ff8c00); }
+    0%, 100% { filter: drop-shadow(0 0 10px #ffcc00) drop-shadow(0 0 20px #ffaa00); }
+    50% { filter: drop-shadow(0 0 20px #ffee00) drop-shadow(0 0 35px #ffcc00); }
 }
 
-/* كلاس مخصص للسنابل */
-.fire-wreath {
-    animation: goldenFireGlow 1.5s infinite alternate ease-in-out !important;
-    z-index: 1;
-    position: relative;
-}
-
-/* كلاس مخصص للكلمة عشان تبقى بارزة وفوق السنابل */
+/* كلاس مخصص للكلمة عشان تبقى بارزة وفوق السنابل بتوهج ذهبي قوي */
 .wreath-hug-text {
     z-index: 5;
     position: relative;
-    text-shadow: 0 0 10px #fbbd08, 0 0 20px #ff8c00;
+    text-shadow: 0 0 15px rgba(251, 189, 8, 1), 0 0 25px #ffaa00, 0 0 35px #ffcc00 !important;
 }
       /* تنسيق رسالة الخطأ في شاشة الدخول لتطابق شكل رسايل النتيجة الحمراء */
 .login-error-alert {
@@ -595,44 +589,47 @@ top: 48%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
 
 /* تنسيق السنابل وكلمة الترتيب */
 /* تنسيق حاوية السنابل والكلمة */
+/* تنسيق حاوية السنابل والكلمة */
 .wreath-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0px; /* تم تقليل المسافة لصفر علشان السنابل تقرب من الكلمة */
-    margin-top: 5px; /* */
+    gap: 0px;
+    margin-top: 5px;
 }
 
-/* أنيميشن توهج النار الذهبية للسنابل */
+/* 1. أنيميشن توهج النار الصفراء الذهبية للسنابل (التعديل الأول) */
 @keyframes goldenFireGlow {
-    0%, 100% { filter: drop-shadow(0 0 8px #ffaa00) drop-shadow(0 0 15px #ff4500); }
-    50% { filter: drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 25px #ff8c00); }
+    0%, 100% { filter: drop-shadow(0 0 10px #ffcc00) drop-shadow(0 0 20px #ffaa00); }
+    50% { filter: drop-shadow(0 0 20px #ffee00) drop-shadow(0 0 35px #ffcc00); }
 }
 
 /* تنسيق صور السنابل */
 .wreath-branch {
-    width: 105px; /* تم تكبير حجم السنبلة (كانت 70px) */
-    height: auto; /*[cite: 1] */
-    animation: goldenFireGlow 1.5s infinite alternate ease-in-out; /* إضافة تأثير النار الذهبية */
+    width: 145px !important; /* 2. تكبير حجم السنبلة (كانت 105px في كودك القديم) */
+    height: auto;
+    animation: goldenFireGlow 1.5s infinite alternate ease-in-out; /* تطبيق تأثير النار الصفراء */
     z-index: 1;
 }
 
-/* جعل السنابل تحتضن الكلمة في المنتصف */
+/* 3. جعل السنابل تحتضن الكلمة بشكل أقوى (التعديل الثالث) */
+/* ملحوظة: لأن موقعك باللغة العربية RTL، السنبلة الأولى بتكون على اليمين والأخيرة على الشمال */
 .wreath-branch:first-child {
-    margin-left: -12px; /* دفع السنبلة الأولى باتجاه الكلمة */
+    margin-left: -35px !important; /* دفع السنبلة اليمين للداخل تجاه الكلمة (كانت -12px) */
 }
 .wreath-branch:last-child {
-    margin-right: -12px; /* دفع السنبلة الثانية باتجاه الكلمة */
+    margin-right: -35px !important; /* دفع السنبلة الشمال للداخل تجاه الكلمة (كانت -12px) */
 }
 
-/* تنسيق الكلمة في المنتصف */
+/* 4. تنسيق الكلمة في المنتصف (التعديل الرابع) */
 .wreath-text {
-    font-size: 42px; /* تم تكبير الكلمة (كانت 30px)[cite: 1] */
-    color: #fbbd08; /*[cite: 1] */
-    font-weight: bold; /*[cite: 1] */
-    text-shadow: 0 0 10px rgba(251, 189, 8, 1), 0 0 20px #ff8c00; /* زيادة توهج الكلمة لتناسب النار[cite: 1] */
+    font-size: 55px !important; /* تكبير حجم الكلمة جداً (كانت 42px في كودك القديم) */
+    color: #fbbd08;
+    font-weight: 900;
+    text-shadow: 0 0 15px rgba(251, 189, 8, 1), 0 0 25px #ffaa00, 0 0 35px #ffcc00; /* توهج الكلمة ليناسب النار */
     z-index: 5; /* ضمان بقاء الكلمة بارزة وفوق السنابل بعد ما قربوا منها */
     padding: 0 5px;
+    position: relative; /* ضروري عشان الـ z-index يشتغل والكلمة تظهر فوق السنابل */
 }
 /* 1. أنيميشن التاج (يميل يمين وشمال بسلاسة) */
 @keyframes crownTilt {
@@ -2115,11 +2112,11 @@ applySavedTheme();
             <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; margin: 5px 0; font-family: 'Cairo', sans-serif; display: inline-block; animation: nameZoomGlow 2s infinite ease-in-out; align-self: center;">${student.name}</div>
             
             <div style="display: flex; justify-content: center; align-items: center; gap: 0px; margin: 15px 0; align-self: center;">
-    <img src="https://i.postimg.cc/sgMtdPgp/Gemini-Generated-Image-p08yz7p08yz7p08y.png" class="fire-wreath" style="width: 105px; height: auto; margin-left: -25px;">
+    <img src="https://i.postimg.cc/sgMtdPgp/Gemini-Generated-Image-p08yz7p08yz7p08y.png" class="fire-wreath" style="width: 145px; height: auto; margin-left: -45px; z-index: 1; position: relative;">
     
-    <span class="wreath-hug-text" style="font-size: 40px; font-weight: 900; font-family: 'Cairo', sans-serif; display: inline-block; animation: instTextFire 1.5s infinite ease-in-out; padding: 0 5px;">الترتيب المعهد #1</span>
+    <span class="wreath-hug-text" style="font-size: 55px; font-weight: 900; font-family: 'Cairo', sans-serif; display: inline-block; animation: instTextFire 1.5s infinite ease-in-out; padding: 0 5px; z-index: 5; position: relative;">الترتيب المعهد #1</span>
     
-    <img src="https://i.postimg.cc/4xFspNmv/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" class="fire-wreath" style="width: 105px; height: auto; margin-right: -25px;">
+    <img src="https://i.postimg.cc/4xFspNmv/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" class="fire-wreath" style="width: 145px; height: auto; margin-right: -45px; z-index: 1; position: relative;">
 </div>
 
             <div style="width: 100%; text-align: right; margin-top: 10px;">
