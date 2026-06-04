@@ -487,7 +487,7 @@ body {
 /* تنسيق العلامة المائية لجعلها في منتصف النتيجة أفقياً ومرفوعة لأعلى قليلاً */
 .result-watermark {
     position: absolute;
-top: 58%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلوين */
+top: 48%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلوين */
     left: 48%; /* هذه القيمة تضمن بقاء اللوجو في المنتصف أفقياً تماماً */
     transform: translate(-50%, -50%);
     width: 640px; /* يمكنك تكبير أو تصغير حجم اللوجو من هنا */
@@ -575,24 +575,45 @@ top: 58%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
 }
 
 /* تنسيق السنابل وكلمة الترتيب */
+/* تنسيق حاوية السنابل والكلمة */
 .wreath-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6px;
-    margin-top: 5px;
+    gap: 0px; /* تم تقليل المسافة لصفر علشان السنابل تقرب من الكلمة */
+    margin-top: 5px; /* */
 }
 
+/* أنيميشن توهج النار الذهبية للسنابل */
+@keyframes goldenFireGlow {
+    0%, 100% { filter: drop-shadow(0 0 8px #ffaa00) drop-shadow(0 0 15px #ff4500); }
+    50% { filter: drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 25px #ff8c00); }
+}
+
+/* تنسيق صور السنابل */
 .wreath-branch {
-width: 70px; /* 👈 تم تكبير حجم السنبلة (كانت 35) */
-    height: auto;
+    width: 105px; /* تم تكبير حجم السنبلة (كانت 70px) */
+    height: auto; /*[cite: 1] */
+    animation: goldenFireGlow 1.5s infinite alternate ease-in-out; /* إضافة تأثير النار الذهبية */
+    z-index: 1;
 }
 
+/* جعل السنابل تحتضن الكلمة في المنتصف */
+.wreath-branch:first-child {
+    margin-left: -12px; /* دفع السنبلة الأولى باتجاه الكلمة */
+}
+.wreath-branch:last-child {
+    margin-right: -12px; /* دفع السنبلة الثانية باتجاه الكلمة */
+}
+
+/* تنسيق الكلمة في المنتصف */
 .wreath-text {
-font-size: 30px; /* 👈 تم تكبير الجملة اللي في النص (كانت 16) */
-    color: #fbbd08;
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(251, 189, 8, 0.8);
+    font-size: 42px; /* تم تكبير الكلمة (كانت 30px)[cite: 1] */
+    color: #fbbd08; /*[cite: 1] */
+    font-weight: bold; /*[cite: 1] */
+    text-shadow: 0 0 10px rgba(251, 189, 8, 1), 0 0 20px #ff8c00; /* زيادة توهج الكلمة لتناسب النار[cite: 1] */
+    z-index: 5; /* ضمان بقاء الكلمة بارزة وفوق السنابل بعد ما قربوا منها */
+    padding: 0 5px;
 }
 /* 1. أنيميشن التاج (يميل يمين وشمال بسلاسة) */
 @keyframes crownTilt {
@@ -2067,7 +2088,7 @@ applySavedTheme();
             <div style="position: relative; width: 120px; margin-bottom: 25px; margin-top: 30px; align-self: center;">
                 <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 85px; z-index: 5; animation: crownTilt 2s ease-in-out infinite;" alt="تاج">
                 
-                <div style="color: #ffd700; width: 120px; height: 120px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); margin-top: 25px;">
+                <div style="color: #ffd700; width: 120px; height: 120px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); margin-top: 23px;">
     ${avatarHTML}
 </div>
             </div>
