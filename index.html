@@ -481,14 +481,28 @@ body {
 /* تنسيق العلامة المائية لجعلها في منتصف النتيجة أفقياً ومرفوعة لأعلى قليلاً */
 .result-watermark {
     position: absolute;
-    top: 40%; /* تم تغيير هذه القيمة لرفع اللوجو لأعلى بدل 50% */
+top: 58%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلوين */
     left: 48%; /* هذه القيمة تضمن بقاء اللوجو في المنتصف أفقياً تماماً */
     transform: translate(-50%, -50%);
     width: 720px; /* يمكنك تكبير أو تصغير حجم اللوجو من هنا */
     height: auto;
     opacity: 0.21; /* درجة الشفافية (7%) لضمان وضوح كلام النتيجة وعدم التشويش عليه */
-    z-index: 990 !important; /* رفع اللوجو فوق الجدول وفوق تأثير الـ hover الرمادي */
+    z-index: 999 !important; /* رفع اللوجو فوق الجدول وفوق تأثير الـ hover الرمادي */
     pointer-events: none; /* تمنع التداخل مع الماوس أو اللمس */
+    mix-blend-mode: multiply; /* 👈 إضافة ممتازة تخفي أي خلفية بيضاء للوجو في الوضع العادي */
+}
+/* 👈 ده الكود الجديد حطيناه هنا تحت اللوجو الأصلي مباشرة 👉 */
+[data-theme="dark"] .result-watermark {
+    opacity: 0.12; /* تقليل الشفافية قليلاً ليريح العين في الظلام */
+    mix-blend-mode: plus-lighter; /* ده السحر اللي هيشيل الخلفية البيضاء ويعكسه مع الإضاءة الليلية */
+    filter: invert(1); /* يعكس ألوان اللوجو ليناسب الخلفية الغامقة */
+}
+
+/* تجهيز حاوية النتيجة لـ طبقة العلامة المائية */
+#capture {
+    position: relative;
+    z-index: 2;
+    overflow: hidden; /* لمنع خروج اللوجو عن إطار الكارت */
 }
 /* تجهيز حاوية النتيجة لـ طبقة العلامة المائية */
 #capture {
@@ -516,12 +530,13 @@ body {
 }
 
 /* التاج للأول على المعهد فقط */
+/* التاج للأول على المعهد فقط */
 .top-crown-icon {
     position: absolute;
-    top: -15px; /* تم تعديل الرقم ده عشان ينزل التاج يلمس الصورة مباشرة */
+    top: -32px; /* 👈 تم الرفع لفوق عشان يلمس الدايرة ومايغطيش وش الطالب (كانت -15) */
     left: 50%;
     transform: translateX(-50%);
-    width: 70px;
+    width: 85px; /* 👈 تم تكبير حجم التاج شوية (كانت 70) */
     z-index: 10;
     /* ربط التاج بأنيميشن الميلان يمين وشمال */
     animation: crownTilt 2s ease-in-out infinite; 
@@ -558,17 +573,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     margin-top: 5px;
 }
 
 .wreath-branch {
-    width: 35px; /* حجم صورة السنبلة */
+width: 48px; /* 👈 تم تكبير حجم السنبلة (كانت 35) */
     height: auto;
 }
 
 .wreath-text {
-    font-size: 16px;
+font-size: 20px; /* 👈 تم تكبير الجملة اللي في النص (كانت 16) */
     color: #fbbd08;
     font-weight: bold;
     text-shadow: 0 0 5px rgba(251, 189, 8, 0.8);
@@ -590,6 +605,7 @@ body {
 .golden-legend-name {
     animation: goldenZoomGlow 2s infinite ease-in-out;
     display: inline-block; /* ضروري عشان الـ scale يشتغل صح مع النص */
+    font-size: 26px !important; /* 👈 تم إضافة هذا السطر لتكبير الاسم */
 }
 
 /* 3. أنيميشن النار لترتيب المعهد */
