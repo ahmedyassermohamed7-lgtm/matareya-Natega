@@ -502,6 +502,70 @@ body {
     position: relative;
     z-index: 3; /* أعلى من طبقة اللوجو */
 }
+/* حاوية الصورة والتاج */
+.student-header-container {
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* التاج للأول على المعهد فقط */
+.top-crown-icon {
+    position: absolute;
+    top: -40px; /* لرفع التاج فوق الصورة */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    z-index: 10;
+}
+
+/* حجم الدائرة (سواء فيها صورة أو مكتوب فيها لم يتم تحديد صورة) */
+.student-avatar-box {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #1a1a2e; /* لون خلفية الدايرة */
+    border: 3px solid #ccc; /* إطار عادي للطلاب العاديين */
+}
+
+/* الإطار الذهبي للأول على المعهد */
+.premium-avatar-box {
+    border: 3px solid #fbbd08;
+    box-shadow: 0 0 15px rgba(251, 189, 8, 0.5);
+}
+
+/* تنسيق الصورة لو الطالب حاطط صورة */
+.student-avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* تنسيق السنابل وكلمة الترتيب */
+.wreath-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.wreath-branch {
+    width: 35px; /* حجم صورة السنبلة */
+    height: auto;
+}
+
+.wreath-text {
+    font-size: 16px;
+    color: #fbbd08;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(251, 189, 8, 0.8);
+}
     </style>
     
 <body>
@@ -1852,26 +1916,11 @@ applySavedTheme();
         return showToast("لم يتم العثور على نتيجة، تأكد من صحة البيانات", "#ef4444");
     }
 
-    // 2. عرض بيانات الطالب الأساسية وشارة الحالة
-    document.getElementById('stdName').innerText = student.name;
-    document.getElementById('stdDetails').innerText = `${student.dept} | ${student.year} | ${student.sem}`;
-
-    const badge = document.getElementById('stdStatusBadge');
-    const currentStatus = student.status || "مستجد";
-    badge.innerText = "الحالة : " + currentStatus;
-if (currentStatus.includes("اعادة") || currentStatus.includes("راسب")) {
-          badge.className = "status-badge re-entry";
-    } else {
-        badge.className = "status-badge";
-    }
-
-    // 3. ------------------ حساب الترتيب الحقيقي ------------------
+    // 3. ------------------ حساب الترتيب الحقيقي أولاً ------------------
     let allInstitute = [];
     if (status === "راسب") {
-        // لو الطالب راسب، قارنه بالراسبين فقط
         allInstitute = rawData.filter(s => s.year === year && s.sem === sem && s.status === "راسب");
     } else {
-        // لو مستجد أو إعادة قيد، ادمجهم في منافسة واحدة
         allInstitute = rawData.filter(s => s.year === year && s.sem === sem && (s.status === "مستجد" || s.status.includes("اعادة")));
     }
     allInstitute.sort((a, b) => {
@@ -1883,15 +1932,75 @@ if (currentStatus.includes("اعادة") || currentStatus.includes("راسب")) 
     
     const allDept = allInstitute.filter(s => s.dept === dept);
     const rankDept = allDept.findIndex(s => s.id.toString() === id.toString()) + 1;
-    
-    // حفظ الترتيب في الذاكرة عشان نرجعله بعدين
+
     savedTermDeptRank = "#" + rankDept;
     savedTermInstRank = "#" + rankAll;
 
     if(document.getElementById('stdRankDept')) document.getElementById('stdRankDept').innerText = savedTermDeptRank;
     if(document.getElementById('stdRankAll')) document.getElementById('stdRankAll').innerText = savedTermInstRank;
-    // ---------------------------------------------------------
 
+    // 2. عرض بيانات الطالب (التاج والصورة والسنابل)
+    const currentStatus = student.status || "مستجد";
+    const badgeClass = (currentStatus.includes("اعادة") || currentStatus.includes("راسب")) ? "status-badge re-entry" : "status-badge";
+
+    // جلب الصورة وفحصها (طلبك بخصوص "لم يتم تحديد صورة")
+    let savedAvatar = localStorage.getItem('savedAvatar');
+    let avatarHTML = "";
+    if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
+        // لو حاطط صورة حقيقية
+        avatarHTML = `<img src="${savedAvatar}" alt="صورة الطالب" style="width: 100%; height: 100%; object-fit: cover;">`;
+    } else {
+        // لو مش حاطط صورة تظهر الجملة فقط
+        avatarHTML = `<div style="font-size: 12px; color: inherit; font-weight: bold; text-align: center; line-height: 1.4; padding: 5px;">لم يتم<br>تحديد صورة</div>`;
+    }
+
+    let metaContainer = document.querySelector('.std-meta');
+    let rankBadgesContainer = document.querySelector('.rank-badges');
+
+    if (rankAll === 1 && status !== "راسب") {
+        // --- تنسيق الأول على المعهد (التاج والصورة المنورة والسنابل) ---
+        metaContainer.style.width = "100%";
+        metaContainer.style.textAlign = "center";
+        metaContainer.style.alignItems = "center";
+        rankBadgesContainer.style.display = "none"; // إخفاء الترتيب العادي
+
+        metaContainer.innerHTML = `
+            <div style="position: relative; margin-bottom: 25px; margin-top: 25px;">
+                <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" style="position: absolute; top: -55px; left: 50%; transform: translateX(-50%); width: 85px; z-index: 5;" alt="تاج">
+                
+                <div style="color: #ffd700; width: 120px; height: 120px; margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); position: relative;">
+                    ${avatarHTML}
+                </div>
+            </div>
+            
+            <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); margin: 5px 0; font-family: 'Cairo', sans-serif;">${student.name}</div>
+            
+            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0;">
+                <img src="https://i.postimg.cc/hPW6q0gP/Gemini-Generated-Image-p08yz7p08yz7p08y.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+                <span style="font-size: 18px; font-weight: 900; color: #ffd700; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);">الترتيب المعهد #1</span>
+                <img src="https://i.postimg.cc/BnCdpPrF/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+            </div>
+
+            <div id="stdDetails" style="font-size: 14px; margin-bottom: 5px;">${student.dept} | ${student.year} | ${student.sem}</div>
+            <div id="stdStatusBadge" class="${badgeClass}">الحالة : ${currentStatus}</div>
+        `;
+    } else {
+        // --- تنسيق الأول على الشعبة + الطالب العادي (بدون تاج وبدون سنابل) ---
+        metaContainer.style.width = "auto";
+        metaContainer.style.textAlign = "right";
+        metaContainer.style.alignItems = "flex-start";
+        rankBadgesContainer.style.display = "flex"; // إظهار الترتيب العادي
+
+        metaContainer.innerHTML = `
+            <div style="color: #64748b; width: 100px; height: 100px; margin-bottom: 15px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #ffffff; border: 3px solid #cbd5e1; position: relative;">
+                ${avatarHTML}
+            </div>
+            <div id="stdName" style="font-weight: bold; font-size: 22px; color: var(--primary-blue); margin-bottom: 5px;">${student.name}</div>
+            <div id="stdDetails" style="font-size: 14px;">${student.dept} | ${student.year} | ${student.sem}</div>
+            <div id="stdStatusBadge" class="${badgeClass}" style="margin-top: 8px;">الحالة : ${currentStatus}</div>
+        `;
+    }
+    // ---------------------------------------------------------
     // 4. مسح ورسم الجدول وتحديد المواد (وحساب هل يوجد مواد ضعيف أم لا)
     const tbody = document.getElementById('gradesBody');
     tbody.innerHTML = "";
@@ -3426,54 +3535,6 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
         }, 500);
     }, 6000);
 
-    const stdNameElement = document.getElementById('stdName');
-    if (stdNameElement && isInstituteFirst) { 
-        const headerElement = document.querySelector('.student-header');
-        if(headerElement) headerElement.style.position = 'relative';
-        
-        const metaElement = document.querySelector('.std-meta');
-        if(metaElement) metaElement.style.paddingTop = '140px';
-
-        if (!document.getElementById('king-name-style')) {
-            const style = document.createElement('style');
-            style.id = 'king-name-style';
-            style.innerHTML = `
-                .special-first-name-container {
-                    position: absolute; left: 50%; top: -25px;
-                    transform: translateX(-50%); display: flex;
-                    flex-direction: column; align-items: center; 
-                    justify-content: center; text-align: center; white-space: nowrap;
-                }
-                .name-inline-crown {
-                    width: 85px !important; animation: inlineCrownFloat 1.5s infinite ease-in-out;
-                    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); margin-bottom: -15px !important; z-index: 2;
-                }
-                .gold-king-name-inline {
-                    font-size: 1.7em !important; font-weight: 900 !important; color: #ffd700 !important;
-                    text-shadow: 0 0 10px #fff, 0 0 20px #ffd700, 0 0 35px #ff8800;
-                    animation: inlineGoldPulse 1.2s infinite alternate;
-                    font-family: 'Cairo', sans-serif; position: relative; z-index: 1; padding-top: 5px;
-                }
-                @keyframes inlineCrownFloat {
-                    0% { transform: translateY(0) scale(1) rotate(-5deg); }
-                    50% { transform: translateY(-8px) scale(1.1) rotate(5deg); }
-                    100% { transform: translateY(0) scale(1) rotate(-5deg); }
-                }
-                @keyframes inlineGoldPulse {
-                    0% { text-shadow: 0 0 5px #fff, 0 0 15px #ffd700, 0 0 25px #ffaa00; transform: translateY(0) scale(1); }
-                    100% { text-shadow: 0 0 12px #fff, 0 0 30px #ffd700, 0 0 45px #ff4500; transform: translateY(-2px) scale(1.03); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        stdNameElement.innerHTML = `
-            <div class="special-first-name-container">
-                <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="name-inline-crown" alt="Crown">
-                <div class="gold-king-name-inline">${studentName}</div>
-            </div>
-        `;
-    }
 }
 
     // --- تعديل الاسم والتاج في النتيجة (فقط للأول على المعهد) وتوسيطهم المطلق ---
