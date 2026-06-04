@@ -248,7 +248,13 @@
         #capture { background: var(--box-bg); padding: 25px; border-radius: 15px; border: 1px solid var(--border-color); position: relative; }
         .student-header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; gap: 10px;}
         
-        .std-meta { display: flex; flex-direction: column; gap: 4px; }
+        .std-meta { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; 
+    align-items: flex-start; /* دي الإضافة اللي هتجبر العناصر تترص في اليمين */
+    text-align: right; 
+}
         .status-badge { background: #dcfce7; color: #166534; padding: 2px 10px; border-radius: 6px; font-size: 13px; font-weight: bold; display: inline-block; width: fit-content; margin-top: 5px; }
         .status-badge.re-entry { background: #fee2e2; color: #991b1b; }
 
@@ -512,13 +518,14 @@ body {
 /* التاج للأول على المعهد فقط */
 .top-crown-icon {
     position: absolute;
-    top: -40px; /* لرفع التاج فوق الصورة */
+    top: -20px; /* تم تعديل الرقم ده عشان ينزل التاج يلمس الصورة مباشرة */
     left: 50%;
     transform: translateX(-50%);
     width: 70px;
     z-index: 10;
+    /* ربط التاج بأنيميشن الميلان يمين وشمال */
+    animation: crownTilt 2s ease-in-out infinite; 
 }
-
 /* حجم الدائرة (سواء فيها صورة أو مكتوب فيها لم يتم تحديد صورة) */
 .student-avatar-box {
     width: 120px;
@@ -565,6 +572,36 @@ body {
     color: #fbbd08;
     font-weight: bold;
     text-shadow: 0 0 5px rgba(251, 189, 8, 0.8);
+}
+/* 1. أنيميشن التاج (يميل يمين وشمال بسلاسة) */
+@keyframes crownTilt {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(-15deg); }
+    50% { transform: translateX(-50%) rotate(0deg); }
+    75% { transform: translateX(-50%) rotate(15deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+/* 2. أنيميشن الاسم الذهبي (يقدم ويرجع ثنة صغيرة مع توهج) */
+@keyframes goldenZoomGlow {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 10px #fbbd08, 0 0 20px #fbbd08; color: #fbbd08; }
+    50% { transform: scale(1.03); text-shadow: 0 0 20px #ffaa00, 0 0 30px #ffaa00, 0 0 40px #ffaa00; color: #ffffff; }
+}
+.golden-legend-name {
+    animation: goldenZoomGlow 2s infinite ease-in-out;
+    display: inline-block; /* ضروري عشان الـ scale يشتغل صح مع النص */
+}
+
+/* 3. أنيميشن النار لترتيب المعهد */
+@keyframes fireRankGlow {
+    0%, 100% { box-shadow: 0 0 10px #ff4500, inset 0 0 10px #ff4500; border-color: #ff4500; color: #fff; background: linear-gradient(45deg, #ff8c00, #ff0000); }
+    50% { box-shadow: 0 0 25px #ffaa00, inset 0 0 15px #ffaa00; border-color: #ffaa00; color: #fff; background: linear-gradient(45deg, #ff4500, #ff8c00); }
+}
+.fire-rank-badge {
+    animation: fireRankGlow 1.5s infinite alternate !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    border: 2px solid transparent !important;
 }
     </style>
     
@@ -1988,14 +2025,19 @@ applySavedTheme();
             <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); margin: 5px 0; font-family: 'Cairo', sans-serif;">${student.name}</div>
             
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0;">
-                <img src="رابط_السنبلة_اليمين.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+                <img src="https://i.postimg.cc/hPW6q0gP/Gemini-Generated-Image-p08yz7p08yz7p08y.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
                 <span style="font-size: 18px; font-weight: 900; color: #ffd700; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);">الترتيب المعهد #1</span>
-                <img src="رابط_السنبلة_الشمال.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+                <img src="https://i.postimg.cc/BnCdpPrF/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
             </div>
 
             <div id="stdDetails" style="font-size: 14px; margin-bottom: 5px;">${student.dept} | ${student.year} | ${student.sem}</div>
             <div id="stdStatusBadge" class="${badgeClass}">الحالة : ${currentStatus}</div>
         `;
+        // إضافة التوهج للاسم
+document.getElementById('stdName').classList.add('golden-legend-name');
+
+// إضافة توهج النار لبادج ترتيب المعهد (بنجيب الأب بتاع رقم الترتيب)
+document.getElementById('stdRankAll').parentElement.classList.add('fire-rank-badge');
     } else {
         // --- الأول على الشعبة + الطالب العادي ---
         metaContainer.style.width = "auto";
@@ -2013,6 +2055,8 @@ applySavedTheme();
             <div id="stdDetails" style="font-size: 14px;">${student.dept} | ${student.year} | ${student.sem}</div>
             <div id="stdStatusBadge" class="${badgeClass}" style="margin-top: 8px;">الحالة : ${currentStatus}</div>
         `;
+        document.getElementById('stdName').classList.remove('golden-legend-name');
+document.getElementById('stdRankAll').parentElement.classList.remove('fire-rank-badge');
     }
     // ---------------------------------------------------------
     // 4. مسح ورسم الجدول وتحديد المواد (وحساب هل يوجد مواد ضعيف أم لا)
