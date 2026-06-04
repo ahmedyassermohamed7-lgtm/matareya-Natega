@@ -1957,16 +1957,28 @@ applySavedTheme();
     let metaContainer = document.querySelector('.std-meta');
     let rankBadgesContainer = document.querySelector('.rank-badges');
 
+    // ------------------ (حل المشكلة 2: توهج اسم الأول على الشعبة) ------------------
+    // هنا بنحدد شكل اسم الطالب: لو أول شعبة ينور ذهبي زي القديم، لو عادي يفضل أزرق
+    let deptFirstStyle = "";
+    if (rankDept === 1 && status !== "راسب") {
+        deptFirstStyle = "color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); font-size: 24px; font-weight: bold; font-family: 'Cairo', sans-serif;";
+    } else {
+        deptFirstStyle = "color: var(--primary-blue); font-size: 22px; font-weight: bold;";
+    }
+    // -------------------------------------------------------------------------------
+
     if (rankAll === 1 && status !== "راسب") {
-        // --- تنسيق الأول على المعهد (التاج والصورة المنورة والسنابل) ---
+        // --- الأول على المعهد ---
         metaContainer.style.width = "100%";
         metaContainer.style.textAlign = "center";
         metaContainer.style.alignItems = "center";
-        rankBadgesContainer.style.display = "none"; // إخفاء الترتيب العادي
+        
+        // (حل المشكلة 3: إظهار الترتيب على المعهد والشعبة ورجوعها زي القديم)
+        rankBadgesContainer.style.display = "flex"; 
 
         metaContainer.innerHTML = `
-            <div style="position: relative; margin-bottom: 25px; margin-top: 25px;">
-                <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" style="position: absolute; top: -55px; left: 50%; transform: translateX(-50%); width: 85px; z-index: 5;" alt="تاج">
+            <div style="position: relative; margin-bottom: 25px; margin-top: 30px;">
+                <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="name-inline-crown" style="position: absolute; top: -55px; left: 50%; transform: translateX(-50%); width: 85px; z-index: 5; animation: goldPulse 2s infinite;" alt="تاج">
                 
                 <div style="color: #ffd700; width: 120px; height: 120px; margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); position: relative;">
                     ${avatarHTML}
@@ -1976,26 +1988,28 @@ applySavedTheme();
             <div id="stdName" style="color: #ffd700; font-size: 26px; font-weight: bold; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); margin: 5px 0; font-family: 'Cairo', sans-serif;">${student.name}</div>
             
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0;">
-                <img src="https://i.postimg.cc/hPW6q0gP/Gemini-Generated-Image-p08yz7p08yz7p08y.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+                <img src="رابط_السنبلة_اليمين.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
                 <span style="font-size: 18px; font-weight: 900; color: #ffd700; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);">الترتيب المعهد #1</span>
-                <img src="https://i.postimg.cc/BnCdpPrF/Gemini-Generated-Image-9vbtw29vbtw29vbt.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
+                <img src="رابط_السنبلة_الشمال.png" style="width: 35px; height: auto; filter: drop-shadow(0 0 5px #ffd700);">
             </div>
 
             <div id="stdDetails" style="font-size: 14px; margin-bottom: 5px;">${student.dept} | ${student.year} | ${student.sem}</div>
             <div id="stdStatusBadge" class="${badgeClass}">الحالة : ${currentStatus}</div>
         `;
     } else {
-        // --- تنسيق الأول على الشعبة + الطالب العادي (بدون تاج وبدون سنابل) ---
+        // --- الأول على الشعبة + الطالب العادي ---
         metaContainer.style.width = "auto";
         metaContainer.style.textAlign = "right";
         metaContainer.style.alignItems = "flex-start";
-        rankBadgesContainer.style.display = "flex"; // إظهار الترتيب العادي
+        
+        // إظهار الترتيب العادي
+        rankBadgesContainer.style.display = "flex"; 
 
         metaContainer.innerHTML = `
             <div style="color: #64748b; width: 100px; height: 100px; margin-bottom: 15px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #ffffff; border: 3px solid #cbd5e1; position: relative;">
                 ${avatarHTML}
             </div>
-            <div id="stdName" style="font-weight: bold; font-size: 22px; color: var(--primary-blue); margin-bottom: 5px;">${student.name}</div>
+            <div id="stdName" style="${deptFirstStyle} margin-bottom: 5px;">${student.name}</div>
             <div id="stdDetails" style="font-size: 14px;">${student.dept} | ${student.year} | ${student.sem}</div>
             <div id="stdStatusBadge" class="${badgeClass}" style="margin-top: 8px;">الحالة : ${currentStatus}</div>
         `;
