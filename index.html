@@ -3953,39 +3953,18 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 /* ======================================================= */
 
 /* 1. التعديل الأول: إجبار خانة الفرقة والترم ليكونا بنفس العرض تماماً بجوار بعضهما في الموبايل */
-/* ======================================================= */
-/* التعديل المظبوط لخيارات البحث في الموبايل */
-/* ======================================================= */
 @media (max-width: 768px) {
     .search-section {
         display: grid !important;
-        grid-template-columns: 1fr 1fr !important; /* تقسيم السطر لعمودين متساويين */
+        grid-template-columns: 1fr 1fr !important; /* هذا السطر يجبر الخانتين على البقاء بجوار بعضهما بنسبة 50% لكل منهما */
         gap: 10px !important;
     }
-
-    /* خانة الفرقة وخانة الترم: ياخدوا عمود واحد لكل منهم (جنب بعض بنصف الحجم) */
-    #yearSelect, #termSelect {
-        grid-column: span 1 !important;
-    }
-
-    /* خانة الشعبة: تفضل عريضة ومفروشة على السطر كله (تاخد العمودين) زي ما إنت عايزها بالظبط */
-    #deptSelect {
-        grid-column: span 2 !important;
-        width: 100% !important;
-    }
-
-    /* خانة حالة الطالب: تاخد عمود واحد بس (تطلع بنفس مقاس الفرقة والترم وماتفرشش) */
-    #statusSelect {
-        grid-column: span 1 !important;
-        width: 100% !important;
-    }
-
-    /* باقي العناصر (صندوق رقم الجلوس، وزر البحث) تفضل عريضة بكامل السطر */
-    .input-group, .btn-search, #progressContainer {
+    /* العناصر التي يجب أن تأخذ عرض الشاشة بالكامل (مثل زر البحث ورقم الجلوس) نعطيها مساحة العمودين */
+    .search-full, .input-group, .btn-search, #progressContainer {
         grid-column: span 2 !important;
     }
 }
-/* ======================================================= */
+
 /* 2. التعديل الثاني: تثبيت لوجو المعهد (العلامة المائية) في الموبايل لمنعه من الارتفاع لأعلى */
 @media (max-width: 768px) {
     .result-watermark {
