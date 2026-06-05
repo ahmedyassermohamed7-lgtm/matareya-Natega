@@ -3617,7 +3617,7 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     let avatarHTML = "";
     // هنتأكد إن في صورة، وإنها مش الصورة الافتراضية
     if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
-        // وضعنا الصورة داخل الصندوق المحكم لمنع التمدد
+        // التعديل هنا: وضعنا الصورة داخل الصندوق المحكم اللي عملناه في الـ CSS
         avatarHTML = `
             <div class="intro-avatar">
                 <img src="${savedAvatar}" alt="صورة الطالب">
@@ -3626,14 +3626,9 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     } else {
         avatarHTML = `<div class="intro-avatar-placeholder">لم يتم<br>تحديد صورة</div>`;
     }
-    
-    // 🚀 التعديل هنا: حطينا التاج والصورة في صندوق واحد (position: relative) 
-    // وإدينا للتاج (position: absolute) عشان يفضل متسنتر فوق الصورة بالظبط
     intro.innerHTML = `
-        <div style="position: relative; display: inline-block; margin-top: 20px;">
-            <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="intro-crown" alt="Crown" style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10;">
-            ${avatarHTML}
-        </div>
+        <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="intro-crown" alt="Crown">
+        ${avatarHTML}
         <div class="intro-name">👑 الأسطورة:${studentName}👑</div>
         <div style="font-size: 1.6rem; color: #e2e8f0; margin-top: 15px; letter-spacing: 1px;">${subtitle}</div>
         <div style="font-size: 1.1rem; color: #a1a1aa; margin-top: 10px;">ألف مبروك التميز والنجاح الباهر!</div>
