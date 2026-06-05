@@ -22,6 +22,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ahmedyassermohamed7-lgtm.github.io/matareya-Natega/logo.jpg">
     <meta charset="UTF-8">
+    <script>
+  // كشف ما إذا كان الجهاز موبايل أو تابلت بناءً على ميزات اللمس، حتى لو فَعّل المستخدم وضع سطح المكتب
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      document.documentElement.classList.add('mobile-viewport-lock');
+  }
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=0.6">
     <title>نتيجة معهد المطرية | البوابة الرسمية</title>
     <!-- الأيقونة الأساسية للمتصفحات ومحرك بحث جوجل (مع تصحيح النوع وتحديد المقاس) -->
@@ -222,7 +228,28 @@
 
         body { background-color: var(--light-bg); color: var(--text-main); margin: 0; padding: 0; scroll-behavior: smooth; overflow-x: hidden; }
         .container { max-width: 850px; margin: auto; padding: 15px; }
-        
+        /* كود إجبار الحجم الموبايلي عند تفعيل وضع سطح المكتب في الهواتف */
+.mobile-viewport-lock .main-wrapper {
+    width: 100% !important;
+    max-width: 470px !important; /* قفل العرض على المقاس القياسي لشاشات الموبايل الكبيرة */
+    margin: 0 auto !important; /* توسيط الموقع تماماً في منتصف الشاشة الافتراضية للكروم */
+    background-color: var(--box-bg);
+    min-height: 100vh;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2); /* إطار ظلي جمالي ليظهر الموقع كأنه تطبيق محكم */
+    position: relative;
+}
+
+.mobile-viewport-lock .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+}
+
+/* حل مشكلة صورة القفل العملاقة لتظل متناسقة عند تفعيل وضع سطح المكتب */
+.mobile-viewport-lock .lock-custom-img {
+    max-width: 85% !important;
+    height: auto !important;
+}
         #demoNotice { 
             background: #fef3c7; color: #92400e; padding: 10px; text-align: center; 
             font-size: 13px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #fde68a;
@@ -3715,7 +3742,7 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 /* ======================================================= */
 /* كود خاص بالموبايل فقط - لن يؤثر على الكمبيوتر نهائياً */
 /* ======================================================= */
-@media (max-width: 768px) {
+@media (max-width: 768px), .mobile-viewport-lock {
     
     /* 1. ضبط الحاوية الرئيسية: جعل الموقع أصغر من حجم شاشة الموبايل وترك حواف فارغة يميناً ويساراً */
     .main-wrapper, .container {
