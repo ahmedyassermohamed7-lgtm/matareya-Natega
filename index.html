@@ -576,7 +576,7 @@ top: 55%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
 /* رفع وتصغير اللوجو ديناميكياً للطالب العادي وأول الشعبة ليتناسب مع تقلص الطول */
 .result-watermark.normal-shift {
     top: 45% !important;
-    width: 200px !important; /* 👈 السطر ده اللي هيصغر حجم اللوجو على الموبايل */
+    width: 250px !important; /* 👈 السطر ده اللي هيصغر حجم اللوجو على الموبايل */
 }
 
 @media (min-width: 992px) {
@@ -896,7 +896,7 @@ top: 55%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
             </a>
             
             <a href="#" onclick="shareApp()" class="menu-item">
-                <span>📤</span> مشاركة التطبيق
+                <span>📤</span> مشاركة الموقع
             </a>
             
             <a href="https://wa.me/201554580557" target="_blank" class="menu-item">
@@ -908,7 +908,7 @@ top: 55%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
             </a>
             
             <a href="#" onclick="showAppInfo()" class="menu-item">
-                <span>ℹ️</span> حول التطبيق
+                <span>ℹ️</span> حول الموقع
             </a>
         </div>
     </div>
@@ -2168,7 +2168,7 @@ applySavedTheme();
     let avatarHTML = "";
     if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
         // لو حاطط صورة حقيقية
-        avatarHTML = `<img src="${savedAvatar}" alt="صورة الطالب" style="width: 120px; height: 120px; max-width: 120px; max-height: 120px; min-width: 120px; min-height: 120px; object-fit: cover; border-radius: 50%; display: block; margin: auto;">`;
+        avatarHTML = `<img src="${savedAvatar}" alt="صورة الطالب" style="width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 50%; display: block;">`;
     } else {
         // لو مش حاطط صورة تظهر الجملة فقط
         avatarHTML = `<div style="font-size: 12px; color: inherit; font-weight: bold; text-align: center; line-height: 1.4; padding: 5px;">لم يتم<br>تحديد صورة</div>`;
@@ -2197,7 +2197,7 @@ let watermarkImg = document.querySelector('.result-watermark');
         rankBadgesContainer.style.display = "flex";
         
         metaContainer.innerHTML = `
-            <div style="position: relative; width: 120px; margin-bottom: 25px; margin-top: 30px; align-self: center;">
+            <div style="position: relative; width: 120px; min-width: 120px; height: 120px; margin-bottom: 25px; margin-top: 30px; align-self: center; flex-shrink: 0;">
                 <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" style="position: absolute; top: -65px !important; left: 50%; transform: translateX(-50%); width: 110px !important; z-index: 5; animation: crownTilt 2s ease-in-out infinite;" alt="تاج">
                 
                 <div style="color: #ffd700; width: 120px; height: 120px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); margin-top: 23px;">
