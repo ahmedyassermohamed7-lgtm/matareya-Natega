@@ -3697,7 +3697,15 @@ function triggerHeavySideConfetti() {
 // --- 3. الدالة المجمعة لإنترو الأسطورة (محدثة بالأصوات وتوقيت الأغنية) ---
 // --- 3. الدالة المجمعة لإنترو الأسطورة ---
 // --- 3. الدالة المجمعة لإنترو الأسطورة (بتوقيت متتالي احترافي) ---
-// 🔥 الكود الجديد: سحب الصورة من المتصفح 🔥
+function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio, rocketSound, confettiSound) {
+    const intro = document.createElement('div');
+    intro.className = 'intro-container';
+    intro.style.perspective = "1200px"; 
+    
+    let subtitle = isInstituteFirst ? "المركز الأول على مستوى المعهد ✨" : "المركز الأول على مستوى الشعبة ✨";
+    
+    // 🔥 الكود الجديد: سحب الصورة من المتصفح 🔥
+   // 🔥 الكود الجديد: سحب الصورة من المتصفح 🔥
     let savedAvatar = localStorage.getItem('savedAvatar');
     let avatarHTML = "";
     // هنتأكد إن في صورة، وإنها مش الصورة الافتراضية
