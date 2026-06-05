@@ -3932,6 +3932,45 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     position: relative !important;
     top: -35px !important; /* إذا أردت سحبهم لأعلى أكثر ليقتربوا من الشبكة، اجعلها -45px أو -50px */
 }
+/* ======================================================= */
+/* تعديلات مخصصة لحل مشاكل العرض والصور في وضع الموبايل والكمبيوتر */
+/* ======================================================= */
+
+/* 1. حل مشكلة عدم تساوي عرض خانة الفرقة والترم في الموبايل العادي */
+@media (max-width: 767px) {
+    /* استهداف عناصر الاختيار والأزرار في منطقة البحث لتوحيد العرض تماماً */
+    .search-container select, 
+    .search-container button,
+    .search-box select,
+    .search-box button,
+    #division, 
+    #semester {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+    }
+}
+
+/* 2. حل جذري لمشكلة ظهور صورة الطالب الأول مربعة في وضع الكمبيوتر على الموبايل */
+/* استهداف أي صورة طالب داخل الهيدر أو المودال وإجبار الصورة نفسها على اتخاذ الشكل الدائري */
+.student-header img, 
+#photoModal img, 
+.student-photo img,
+#studentPhoto,
+.top-student-img {
+    border-radius: 50% !important; /* جعل الصورة دائرية بشكل مباشر لمنع ظهور الزوايا المربعة */
+    object-fit: cover !important;   /* الحفاظ على أبعاد الصورة ومنع تمطيطها */
+}
+
+/* إجبار متصفح الموبايل في وضع الكمبيوتر على تفعيل كارت الشاشة لقص الحواف الزائدة */
+.student-header .photo-container,
+#photoModal .modal-body,
+.student-photo-frame {
+    isolation: isolate !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    transform: translateZ(0) !important;
+}
 </style>
 
 
