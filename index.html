@@ -576,7 +576,7 @@ top: 55%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
 /* رفع وتصغير اللوجو ديناميكياً للطالب العادي وأول الشعبة ليتناسب مع تقلص الطول */
 .result-watermark.normal-shift {
     top: 45% !important;
-    width: 350px !important; /* 👈 السطر ده اللي هيصغر حجم اللوجو على الموبايل */
+    width: 200px !important; /* 👈 السطر ده اللي هيصغر حجم اللوجو على الموبايل */
 }
 
 @media (min-width: 992px) {
@@ -757,6 +757,26 @@ top: 55%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
 .fire-dept-rank {
     animation: deptFireBadge 1.5s infinite ease-in-out !important;
     transition: all 0.3s;
+}
+/* قفل أبعاد صندوق الصورة (الأفاتار) ومنعه من التمدد نهائياً */
+.intro-avatar {
+    width: 120px !important;            /* حجم الصندوق على الموبايل */
+    height: 120px !important;           /* طول الصندوق على الموبايل */
+    margin: 0 auto 15px auto !important; /* لسنترة الصندوق تماماً في المنتصف */
+    position: relative !important;
+    border-radius: 50% !important;      /* جعل الصندوق دائري تماماً */
+    overflow: hidden !important;        /* إخفاء أي أجزاء زائدة من الصورة خارج الدائرة */
+    border: 4px solid #ffd700 !important; /* الإطار الذهبي المظبوط */
+    display: block !important;
+}
+
+/* تكبير حجم صندوق الصورة قليلاً على شاشات الكمبيوتر مع الحفاظ على أبعاده الثابتة */
+@media (min-width: 992px) {
+    .intro-avatar {
+        width: 150px !important;        /* حجم الصندوق الثابت على الكمبيوتر */
+        height: 150px !important;       /* طول الصندوق الثابت على الكمبيوتر */
+        margin: 0 auto 20px auto !important;
+    }
 }
     </style>
     
