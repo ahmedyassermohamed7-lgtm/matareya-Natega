@@ -22,12 +22,6 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ahmedyassermohamed7-lgtm.github.io/matareya-Natega/logo.jpg">
     <meta charset="UTF-8">
-    <script>
-  // كشف ما إذا كان الجهاز موبايل أو تابلت بناءً على ميزات اللمس، حتى لو فَعّل المستخدم وضع سطح المكتب
-  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-      document.documentElement.classList.add('mobile-viewport-lock');
-  }
-</script>
     <meta name="viewport" content="width=device-width, initial-scale=0.6">
     <title>نتيجة معهد المطرية | البوابة الرسمية</title>
     <!-- الأيقونة الأساسية للمتصفحات ومحرك بحث جوجل (مع تصحيح النوع وتحديد المقاس) -->
@@ -42,6 +36,48 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+      /* تنسيق شاشة التحذير - مخفية افتراضياً */
+#desktop-warning-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--light-bg);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.warning-content {
+    background-color: var(--box-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 400px;
+}
+
+.warning-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.warning-content p {
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* إظهار التحذير وإخفاء الموقع عند تفعيل كلاس المنع */
+body.force-mobile-mode #desktop-warning-overlay {
+    display: flex !important;
+}
+
+body.force-mobile-mode .main-wrapper {
+    display: none !important;
+}
       /* أنيميشن توهج السنابل الناري */
 /* أنيميشن توهج السنابل الناري (اللون الذهبي الصافي بدلاً من البرتقالي/الأحمر) */
 @keyframes goldenFireGlow {
@@ -228,28 +264,7 @@
 
         body { background-color: var(--light-bg); color: var(--text-main); margin: 0; padding: 0; scroll-behavior: smooth; overflow-x: hidden; }
         .container { max-width: 850px; margin: auto; padding: 15px; }
-        /* كود إجبار الحجم الموبايلي عند تفعيل وضع سطح المكتب في الهواتف */
-.mobile-viewport-lock .main-wrapper {
-    width: 100% !important;
-    max-width: 470px !important; /* قفل العرض على المقاس القياسي لشاشات الموبايل الكبيرة */
-    margin: 0 auto !important; /* توسيط الموقع تماماً في منتصف الشاشة الافتراضية للكروم */
-    background-color: var(--box-bg);
-    min-height: 100vh;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2); /* إطار ظلي جمالي ليظهر الموقع كأنه تطبيق محكم */
-    position: relative;
-}
-
-.mobile-viewport-lock .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 12px !important;
-}
-
-/* حل مشكلة صورة القفل العملاقة لتظل متناسقة عند تفعيل وضع سطح المكتب */
-.mobile-viewport-lock .lock-custom-img {
-    max-width: 85% !important;
-    height: auto !important;
-}
+        
         #demoNotice { 
             background: #fef3c7; color: #92400e; padding: 10px; text-align: center; 
             font-size: 13px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #fde68a;
@@ -725,7 +740,14 @@ top: 51%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
     </style>
     
 <body>
-
+<!-- شاشة التحذير الخاصة بوضع سطح المكتب -->
+<div id="desktop-warning-overlay">
+    <div class="warning-content">
+        <span style="font-size: 50px;">📱</span>
+        <h3>عذراً، يرجى إيقاف وضع سطح المكتب</h3>
+        <p>بوابة النتائج مصممة لتعمل على وضع الهاتف العادي لضمان عرض بياناتك بشكل صحيح. يرجى إلغاء تفعيل "Desktop Site" من إعدادات المتصفح وتحديث الصفحة.</p>
+    </div>
+</div>
   <div class="main-wrapper">
   <div id="siteLoader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0f1e; z-index:100000; display:flex; justify-content:center; align-items:center; flex-direction:column; color:#fff; font-family:'Cairo',sans-serif;">
     <div style="border:4px solid #f3f3f3; border-top:4px solid #3498db; border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite;"></div>
@@ -3742,7 +3764,7 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 /* ======================================================= */
 /* كود خاص بالموبايل فقط - لن يؤثر على الكمبيوتر نهائياً */
 /* ======================================================= */
-@media (max-width: 768px), .mobile-viewport-lock {
+@media (max-width: 768px) {
     
     /* 1. ضبط الحاوية الرئيسية: جعل الموقع أصغر من حجم شاشة الموبايل وترك حواف فارغة يميناً ويساراً */
     .main-wrapper, .container {
@@ -4025,7 +4047,23 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 }
 </style>
 
+<script>
+    function checkDesktopMode() {
+        // window.innerWidth: العرض الوهمي للمتصفح
+        // screen.width: العرض الحقيقي لشاشة الجهاز
+        
+        // إذا كان المتصفح يفرض عرضاً أكبر من 900 بكسل، ولكن الشاشة الحقيقية للجهاز صغيرة (موبايل)
+        if (window.innerWidth >= 900 && screen.width <= 768) {
+            document.body.classList.add('force-mobile-mode');
+        } else {
+            document.body.classList.remove('force-mobile-mode');
+        }
+    }
 
+    // تشغيل الفحص عند تحميل الصفحة وعند محاولة تغيير الحجم
+    window.addEventListener('load', checkDesktopMode);
+    window.addEventListener('resize', checkDesktopMode);
+</script>
 </body>
 
 
