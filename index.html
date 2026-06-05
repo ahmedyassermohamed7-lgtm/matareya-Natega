@@ -3615,14 +3615,17 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     // 🔥 الكود الجديد: سحب الصورة من المتصفح 🔥
     let savedAvatar = localStorage.getItem('savedAvatar');
     let avatarHTML = "";
-    
     // هنتأكد إن في صورة، وإنها مش الصورة الافتراضية
     if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
-        avatarHTML = `<img src="${savedAvatar}" class="intro-avatar" alt="صورة الطالب">`;
+        // التعديل هنا: وضعنا الصورة داخل الصندوق المحكم اللي عملناه في الـ CSS
+        avatarHTML = `
+            <div class="intro-avatar">
+                <img src="${savedAvatar}" alt="صورة الطالب">
+            </div>
+        `;
     } else {
         avatarHTML = `<div class="intro-avatar-placeholder">لم يتم<br>تحديد صورة</div>`;
     }
-
     intro.innerHTML = `
         <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="intro-crown" alt="Crown">
         ${avatarHTML}
@@ -3807,17 +3810,33 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     }
 }
 /* تنسيقات صورة الأسطورة في الإنترو */
+/* تنسيقات صورة الأسطورة في الإنترو (محدثة ومحمية من التمدد) */
 .intro-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #ffd700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-    margin-top: 10px;
-    margin-bottom: -15px;
-    z-index: 3;
-    animation: fadeInIntro 1s ease-in-out;
+    width: 120px !important;
+    height: 120px !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
+    min-height: 120px !important;
+    max-height: 120px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50% !important;
+    overflow: hidden !important; /* هذا السطر هو السحر لمنع أي تمدد للصورة */
+    border: 4px solid #ffd700 !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important;
+    margin-top: 10px !important;
+    margin-bottom: -15px !important;
+    z-index: 3 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: #111424 !important;
+    animation: fadeInIntro 1s ease-in-out !important;
+}
+.intro-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
 }
 .intro-avatar-placeholder {
     width: 120px;
