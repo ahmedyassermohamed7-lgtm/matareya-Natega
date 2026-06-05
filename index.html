@@ -3617,7 +3617,7 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     let avatarHTML = "";
     // هنتأكد إن في صورة، وإنها مش الصورة الافتراضية
     if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
-        // التعديل هنا: وضعنا الصورة داخل الصندوق المحكم اللي عملناه في الـ CSS
+        // وضعنا الصورة داخل الصندوق المحكم لمنع التمدد
         avatarHTML = `
             <div class="intro-avatar">
                 <img src="${savedAvatar}" alt="صورة الطالب">
@@ -3626,9 +3626,14 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     } else {
         avatarHTML = `<div class="intro-avatar-placeholder">لم يتم<br>تحديد صورة</div>`;
     }
+    
+    // 🚀 التعديل هنا: حطينا التاج والصورة في صندوق واحد (position: relative) 
+    // وإدينا للتاج (position: absolute) عشان يفضل متسنتر فوق الصورة بالظبط
     intro.innerHTML = `
-        <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="intro-crown" alt="Crown">
-        ${avatarHTML}
+        <div style="position: relative; display: inline-block; margin-top: 20px;">
+            <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="intro-crown" alt="Crown" style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10;">
+            ${avatarHTML}
+        </div>
         <div class="intro-name">👑 الأسطورة:${studentName}👑</div>
         <div style="font-size: 1.6rem; color: #e2e8f0; margin-top: 15px; letter-spacing: 1px;">${subtitle}</div>
         <div style="font-size: 1.1rem; color: #a1a1aa; margin-top: 10px;">ألف مبروك التميز والنجاح الباهر!</div>
@@ -3951,6 +3956,50 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 .signature-section { 
     position: relative !important;
     top: -35px !important; /* إذا أردت سحبهم لأعلى أكثر ليقتربوا من الشبكة، اجعلها -45px أو -50px */
+}
+/* ==============================================================
+   الحل الجذري والنهائي لمنع تمدد صورة الأسطورة على الموبايل
+   ============================================================== */
+
+/* 1. إجبار الصندوق الحاوي على ثبات الأبعاد مستحيل يتمدد */
+.intro-avatar {
+    display: block !important;
+    position: relative !important; /* مهم جداً لضبط تموضع التاج */
+    width: 120px !important;
+    height: 120px !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
+    min-height: 120px !important;
+    max-height: 120px !important;
+    margin: 20px auto -15px auto !important; /* سنترة في النص تماماً */
+    border-radius: 50% !important;
+    overflow: hidden !important; /* قص أي زيادة برة الدائرة */
+    border: 4px solid #ffd700 !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important;
+    z-index: 5 !important;
+    -webkit-backface-visibility: hidden; /* لحل مشاكل رندر الموبايل */
+    transform: translateZ(0);
+}
+
+/* 2. التحكم الكامل في الصورة داخل الصندوق ومنع تمطيطها */
+.intro-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: cover !important; /* قص الصورة كأفاتار مدور ممتاز */
+    object-position: center !important;
+    display: block !important;
+}
+
+/* 3. التأكد من أن التاج بيلف فوق الصندوق ومبيزقوش */
+.crown-icon {
+    position: absolute !important;
+    /* عدل الأرقام دي (top و left) عشان تظبط سنترة التاج بالظبط فوق الدائرة */
+    top: -35px !important; 
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 10 !important;
 }
 </style>
 
