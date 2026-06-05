@@ -3697,33 +3697,28 @@ function triggerHeavySideConfetti() {
 // --- 3. الدالة المجمعة لإنترو الأسطورة (محدثة بالأصوات وتوقيت الأغنية) ---
 // --- 3. الدالة المجمعة لإنترو الأسطورة ---
 // --- 3. الدالة المجمعة لإنترو الأسطورة (بتوقيت متتالي احترافي) ---
-function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio, rocketSound, confettiSound) {
-    const intro = document.createElement('div');
-    intro.className = 'intro-container';
-    intro.style.perspective = "1200px"; 
-    
-    let subtitle = isInstituteFirst ? "المركز الأول على مستوى المعهد ✨" : "المركز الأول على مستوى الشعبة ✨";
-    
-    // 🔥 الكود الجديد: سحب الصورة من المتصفح 🔥
+// 🔥 الكود الجديد: سحب الصورة من المتصفح 🔥
     let savedAvatar = localStorage.getItem('savedAvatar');
     let avatarHTML = "";
     // هنتأكد إن في صورة، وإنها مش الصورة الافتراضية
     if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
-        // التعديل هنا: وضعنا الصورة داخل الصندوق المحكم اللي عملناه في الـ CSS
         avatarHTML = `
-            <div class="intro-avatar">
-                <img src="${savedAvatar}" alt="صورة الطالب">
+            <div style="width: 150px; height: 150px; min-width: 150px; min-height: 150px; flex-shrink: 0; margin: 0 auto; position: relative; z-index: 5; border-radius: 50%; border: 4px solid #ffd700; overflow: hidden; box-shadow: 0 0 25px rgba(255, 215, 0, 0.8); background-color: #111424; display: flex; justify-content: center; align-items: center;">
+                <img src="${savedAvatar}" alt="صورة الطالب" style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; border-radius: 50%;">
             </div>
         `;
     } else {
-        avatarHTML = `<div class="intro-avatar-placeholder">لم يتم<br>تحديد صورة</div>`;
+        avatarHTML = `
+            <div style="width: 150px; height: 150px; min-width: 150px; min-height: 150px; flex-shrink: 0; margin: 0 auto; position: relative; z-index: 5; border-radius: 50%; border: 3px dashed #ffd700; background: rgba(255, 255, 255, 0.1); color: #ffd700; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: bold; text-align: center; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); font-family: 'Cairo', sans-serif;">لم يتم<br>تحديد صورة</div>
+        `;
     }
+    
     intro.innerHTML = `
-        <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" class="intro-crown" alt="Crown">
+        <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" alt="Crown" style="width: 170px; max-width: 170px; height: auto; margin-bottom: -20px; z-index: 10; position: relative; animation: floatCrownIntro 3s ease-in-out infinite;">
         ${avatarHTML}
-        <div class="intro-name">👑 الأسطورة:${studentName}👑</div>
-        <div style="font-size: 1.6rem; color: #e2e8f0; margin-top: 15px; letter-spacing: 1px;">${subtitle}</div>
-        <div style="font-size: 1.1rem; color: #a1a1aa; margin-top: 10px;">ألف مبروك التميز والنجاح الباهر!</div>
+        <div class="intro-name" style="margin-top: 15px;">👑 الأسطورة: ${studentName} 👑</div>
+        <div style="font-size: 1.6rem; color: #e2e8f0; margin-top: 10px; letter-spacing: 1px; text-align: center;">${subtitle}</div>
+        <div style="font-size: 1.1rem; color: #a1a1aa; margin-top: 10px; text-align: center;">ألف مبروك التميز والنجاح الباهر!</div>
     `;
     
     document.body.appendChild(intro);
