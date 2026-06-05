@@ -572,6 +572,16 @@ top: 55%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
         width: 600px; /* 👈 كبرنا اللوجو سنة بسيطة عشان شاشة الكمبيوتر عريضة (اختياري) */
     }
 }
+/* رفع اللوجو ديناميكياً للطالب العادي وأول الشعبة ليتناسب مع تقلص الطول */
+.result-watermark.normal-shift {
+    top: 45% !important; /* الرقم ده هيرفع اللوجو لفوق مع الجدول */
+}
+
+@media (min-width: 992px) {
+    .result-watermark.normal-shift {
+        top: 42% !important; /* ضبط الرفع لشاشات الكمبيوتر */
+    }
+}
 /* تجهيز حاوية النتيجة لـ طبقة العلامة المائية */
 #capture {
     position: relative;
@@ -2153,8 +2163,9 @@ applySavedTheme();
         deptFirstStyle = "color: var(--primary-blue); font-size: 22px; font-weight: bold;";
     }
     // -------------------------------------------------------------------------------
-
+let watermarkImg = document.querySelector('.result-watermark');
     if (rankAll === 1 && status !== "راسب") {
+      if(watermarkImg) watermarkImg.classList.remove('normal-shift'); // يرجع لمكانه الأصلي
         // --- الأول على المعهد ---
         metaContainer.style.width = "100%";
         metaContainer.style.textAlign = "right"; // تم التعديل لليمين
@@ -2189,6 +2200,7 @@ applySavedTheme();
 
         // --- الأول على الشعبة + الطالب العادي ---
        } else {
+        if(watermarkImg) watermarkImg.classList.add('normal-shift'); // يترفع لفوق مع الموقع
         // --- الأول على الشعبة + الطالب العادي ---
         metaContainer.style.width = "100%";
         metaContainer.style.textAlign = "right";
