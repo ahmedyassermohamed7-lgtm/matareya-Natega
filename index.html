@@ -3932,48 +3932,6 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
     position: relative !important;
     top: -35px !important; /* إذا أردت سحبهم لأعلى أكثر ليقتربوا من الشبكة، اجعلها -45px أو -50px */
 }
-/* ======================================================= */
-/* التعديلات الجذرية الجديدة (تمت إضافتها لحل مشاكل الموبايل) */
-/* ======================================================= */
-
-/* 1. التعديل الأول: إجبار خانة الفرقة والترم ليكونا بنفس العرض تماماً بجوار بعضهما في الموبايل */
-@media (max-width: 768px) {
-    .search-section {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important; /* هذا السطر يجبر الخانتين على البقاء بجوار بعضهما بنسبة 50% لكل منهما */
-        gap: 10px !important;
-    }
-    /* العناصر التي يجب أن تأخذ عرض الشاشة بالكامل (مثل زر البحث ورقم الجلوس) نعطيها مساحة العمودين */
-    .search-full, .input-group, .btn-search, #progressContainer {
-        grid-column: span 2 !important;
-    }
-}
-
-/* 2. التعديل الثاني: تثبيت لوجو المعهد (العلامة المائية) في الموبايل لمنعه من الارتفاع لأعلى */
-@media (max-width: 768px) {
-    .result-watermark {
-        top: 65% !important; /* زيادة هذه النسبة ستسحب اللوجو للأسفل ليتوسط النتيجة في الموبايل */
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 130% !important; /* تكبير اللوجو قليلاً في الموبايل ليكون واضحاً */
-    }
-}
-
-/* 3. التعديل الثالث: الحل الجذري لمشكلة الصورة المربعة في وضع الكمبيوتر على متصفح الموبايل */
-/* هذا الكود يستهدف الصورة مباشرة داخل الدائرة التي يتم إنشاؤها عبر الجافاسكريبت */
-.std-meta img, 
-.student-avatar-box img, 
-.premium-avatar-box img,
-div[style*="border-radius: 50%"] > img {
-    border-radius: 50% !important;
-    -webkit-border-radius: 50% !important;
-    /* السطرين القادمين هما الحل السحري لمشكلة الزووم في جوجل كروم للموبايل */
-    transform: translateZ(0) !important;
-    -webkit-transform: translateZ(0) !important;
-    object-fit: cover !important;
-}
-
-/* ======================================================= */
 </style>
 
 
