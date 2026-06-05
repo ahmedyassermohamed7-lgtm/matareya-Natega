@@ -864,9 +864,9 @@ top: 51%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلو
             <option value="" disabled selected>-- اختر الشعبة --</option>
         </select>
 
-<div class="input-group search-full">
-  <label for="status">حالة الطالب:</label>
-  <select id="statusSelect" class="search-full">
+<div class="input-group">
+  <label for="status" style="font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block;">حالة الطالب:</label>
+  <select id="statusSelect">
   <option value="" disabled selected>-- حالة الطالب --</option>
   <option value="مستجد">مستجد</option>
 <option value="باقي اعادة">باقي اعادة</option>
@@ -2078,7 +2078,7 @@ applySavedTheme();
     let avatarHTML = "";
     if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
         // لو حاطط صورة حقيقية
-        avatarHTML = `<img src="${savedAvatar}" alt="صورة الطالب" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+        avatarHTML = `<img src="${savedAvatar}" alt="صورة الطالب" style="width: 120px; height: 120px; max-width: 120px; max-height: 120px; min-width: 120px; min-height: 120px; object-fit: cover; border-radius: 50%; display: block; margin: auto;">`;
     } else {
         // لو مش حاطط صورة تظهر الجملة فقط
         avatarHTML = `<div style="font-size: 12px; color: inherit; font-weight: bold; text-align: center; line-height: 1.4; padding: 5px;">لم يتم<br>تحديد صورة</div>`;
