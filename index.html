@@ -256,7 +256,19 @@
         .main-header { background: var(--primary-blue); color: white; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
 
         .search-section { background: var(--box-bg); padding: 25px; border-radius: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border: 1px solid var(--border-color); position: relative;}
-        .search-section select, .search-section input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 16px; text-align: center; background: var(--light-bg); color: var(--text-main); outline: none; }
+        .search-section select, .search-section input { 
+    width: 100%;
+    min-width: 0; /* هذا السطر يمنع تمدد الخانة بسبب النص الطويل */
+    box-sizing: border-box; /* لضمان أن الحواف لا تزيد من الحجم الكلي */
+    padding: 12px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+    font-size: 16px; 
+    text-align: center; 
+    background: var(--light-bg); 
+    color: var(--text-main); 
+    outline: none;
+}
         .search-full { grid-column: span 2; }
         
         .autocomplete-list { position: absolute; top: 100%; left: 0; right: 0; background: var(--box-bg); border: 1px solid var(--border-color); border-radius: 8px; max-height: 200px; overflow-y: auto; z-index: 100; display: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
@@ -505,8 +517,10 @@ body {
 /* تنسيق العلامة المائية لجعلها في منتصف النتيجة أفقياً ومرفوعة لأعلى قليلاً */
 .result-watermark {
     position: absolute;
-top: 51%; /* 👈 تم تغييرها من 40% لتنزل لتحت حبة حلوين */
-    left: 48%; /* هذه القيمة تضمن بقاء اللوجو في المنتصف أفقياً تماماً */
+.result-watermark {
+    position: absolute;
+    top: 320px; /* قم بزيادة أو تقليل هذا الرقم حسب المسافة التي تراها مناسبة لك */
+    left: 48%;
     transform: translate(-50%, -50%);
     width: 640px; /* يمكنك تكبير أو تصغير حجم اللوجو من هنا */
     height: auto;
@@ -2078,7 +2092,7 @@ applySavedTheme();
     let avatarHTML = "";
     if (savedAvatar && !savedAvatar.includes('a25c12ee-57fa-4a16-9938-fab0fcaff105.jpg')) {
         // لو حاطط صورة حقيقية
-        avatarHTML = `<img src="${savedAvatar}" alt="صورة الطالب" style="width: 100%; height: 100%; object-fit: cover;">`;
+        avatarHTML = `<img src="${savedAvatar}" alt="صورة الطالب" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
     } else {
         // لو مش حاطط صورة تظهر الجملة فقط
         avatarHTML = `<div style="font-size: 12px; color: inherit; font-weight: bold; text-align: center; line-height: 1.4; padding: 5px;">لم يتم<br>تحديد صورة</div>`;
@@ -2109,7 +2123,7 @@ applySavedTheme();
             <div style="position: relative; width: 120px; margin-bottom: 25px; margin-top: 30px; align-self: center;">
                 <img src="https://i.postimg.cc/xCND7P5w/photo-5818876715906830548-y.png" style="position: absolute; top: -65px !important; left: 50%; transform: translateX(-50%); width: 110px !important; z-index: 5; animation: crownTilt 2s ease-in-out infinite;" alt="تاج">
                 
-                <div style="color: #ffd700; width: 120px; height: 120px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); margin-top: 23px;">
+                <div style="transform: translateZ(0); color: #ffd700; width: 120px; height: 120px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #111424; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); margin-top: 23px;">
     ${avatarHTML}
 </div>
             </div>
