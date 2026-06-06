@@ -4105,33 +4105,15 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 </style>
 
 <script>
-    function checkDesktopMode() {
-        // window.innerWidth: العرض الوهمي للمتصفح
-        // screen.width: العرض الحقيقي لشاشة الجهاز
-        
-        // إذا كان المتصفح يفرض عرضاً أكبر من 900 بكسل، ولكن الشاشة الحقيقية للجهاز صغيرة (موبايل)
-        if (window.innerWidth >= 900 && screen.width <= 768) {
-            document.body.classList.add('force-mobile-mode');
-        } else {
-            document.body.classList.remove('force-mobile-mode');
-        }
-    }
-
-    // تشغيل الفحص عند تحميل الصفحة وعند محاولة تغيير الحجم
-    window.addEventListener('load', checkDesktopMode);
-    window.addEventListener('resize', checkDesktopMode);
-
-</script>
-<script>
+    <script>
 let isSiteFrozen = false;
+let isOwnerVerified = false; // 🌟 المتغير السحري لمنع تكرار قفل الموقع للمالك
 
 // دالة تجميد الموقع وإظهار شاشة المالك
 function freezeWebsite() {
+    if (isOwnerVerified) return; // 🌟 إذا كان المالك مسجلاً، يتم إلغاء القفل فوراً ولا يظهر مجدداً
     if (isSiteFrozen) return;
     isSiteFrozen = true;
-
-    // تجميد المتصفح لو فاتح الـ Inspect
-    setTimeout(() => { debugger; }, 50);
 
     let overlay = document.getElementById('tamper-lock-overlay');
     if (!overlay) {
@@ -4146,10 +4128,10 @@ function freezeWebsite() {
         overlay.innerHTML = `
             <div style="background: #1e2937; padding: 35px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 420px; width: 100%; border: 1px solid #374151;">
                 <h1 style="font-size: 2.2rem; margin-top: 0; margin-bottom: 10px; color: #ef4444;">🚫 تم إيقاف النظام 🚫</h1>
-                <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 15px; font-weight: 500;">تم رصد محاولة غير مصرح بها للتلاعب</h3>
+                <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 15px; font-weight: 500;">تم رصد محاولة غير مصرح بها للتلاعب بفحص العناصر</h3>
                 <p style="font-size: 14px; color: #94a3b8; margin-bottom: 25px;">يرجى عمل تحديث (Refresh) للصفحة للعودة.</p>
                 
-                <button id="btn-owner-trigger" onclick="showOwnerForm()" style="background: #2563eb; color: white; border: none; padding: 12px 35px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%;">أنا المالك</button>
+                <button id="btn-owner-trigger" onclick="showOwnerForm()" style="background: #2563eb; color: white; border: none; padding: 12px 35px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%;">أنا المالك</button>
                 
                 <div id="owner-login-box" style="display: none; margin-top: 15px; text-align: right;">
                     <div style="margin-bottom: 15px;">
@@ -4187,40 +4169,36 @@ function verifyOwnerLogin() {
         return;
     }
     
-    errorDiv.innerText = "جاري التحقق...";
+    errorDiv.innerText = "جاري التحقق من السيرفر...";
     errorDiv.style.background = "#e0f2fe"; errorDiv.style.color = "#0369a1"; errorDiv.style.display = "block";
 
     fetch(`${SCRIPT_URL}?action=verifyOwner&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                // إخفاء الشاشة ورجوع الموقع طبيعي
+                isOwnerVerified = true; // 🌟 تفعيل وضع المالك المعتمد لمنع القفل مرة أخرى خلال هذه الجلسة
                 isSiteFrozen = false;
                 document.getElementById('tamper-lock-overlay').style.display = 'none';
                 document.getElementById('ownerEmail').value = '';
                 document.getElementById('ownerPassword').value = '';
                 document.getElementById('btn-owner-trigger').style.display = 'block';
                 document.getElementById('owner-login-box').style.display = 'none';
-                if (typeof showToast === 'function') showToast("تم إلغاء الحظر بنجاح! 🔓", "#22c55e");
+                if (typeof showToast === 'function') showToast("مرحباً بك يا مالك الموقع، تم تفعيل الوضع الآمن وإلغاء القيود! 🔓", "#22c55e");
             } else {
                 errorDiv.innerText = data.error;
                 errorDiv.style.background = "#fee2e2"; errorDiv.style.color = "#991b1b";
             }
         })
         .catch(err => {
-            errorDiv.innerText = "حدث خطأ في الاتصال.";
+            errorDiv.innerText = "حدث خطأ في الاتصال بقاعدة البيانات.";
             errorDiv.style.background = "#fee2e2"; errorDiv.style.color = "#991b1b";
         });
 }
 
-// ----------------------------------------------------
-// مراقبة كليك يمين والاختصارات
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    freezeWebsite();
-});
-
+// 1. مراقبة اختصارات لوحة المفاتيح (F12 وأخواتها)
 document.addEventListener('keydown', function(e) {
+    if (isOwnerVerified) return; // 🌟 تجاهل الاختصار تماماً إذا كان المالك مسجلاً
+    
     if (
         e.key === 'F12' || 
         (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) ||
@@ -4232,6 +4210,20 @@ document.addEventListener('keydown', function(e) {
         freezeWebsite();
     }
 });
+
+// 2. 🌟 كاشف فتح أدوات المطور (Inspect Element) الذكي بدون تعطيل كليك يمين
+setInterval(function() {
+    if (isOwnerVerified || isSiteFrozen) return; // إذا كان المالك مسجلاً أو الموقع مقفلاً بالفعل، لا تفعل شيئاً
+    
+    let startTime = performance.now();
+    debugger; // سيتسبب في إيقاف السكريبت مؤقتاً فقط إذا كانت واجهة فحص العناصر مفتوحة
+    let endTime = performance.now();
+    
+    // إذا استغرق الأمر أكثر من 100 مللي ثانية فهذا يعني أن أدوات المطور مفتوحة والسكريبت متوقف عندها
+    if (endTime - startTime > 100) {
+        freezeWebsite();
+    }
+}, 1000);
 </script>
 </body>
 
