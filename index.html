@@ -46,21 +46,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
-  /* منع تحديد النص والضغطة المطولة في الموبايل والكمبيوتر */
-body {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* استثناء حقول الإدخال لكي يستطيع الطالب كتابة رقم جلوسه */
-input, textarea, select {
-    -webkit-user-select: auto !important;
-    user-select: auto !important;
-}
+  
       /* تنسيق شاشة التحذير - مخفية افتراضياً */
 #desktop-warning-overlay {
     display: none;
@@ -4119,128 +4105,21 @@ function triggerFirstRankCelebration(studentName, isInstituteFirst, studentAudio
 </style>
 
 <script>
-let isSiteFrozen = false;
-let isOwnerVerified = false;
-let debuggerInterval; // للتحكم في إيقاف الـ debugger للمالك
-
-// 1. منع كليك يمين في الماوس (Right-Click)
-document.addEventListener('contextmenu', function(e) {
-    if (!isOwnerVerified) {
-        e.preventDefault();
-        freezeWebsite();
+    function checkDesktopMode() {
+        // window.innerWidth: العرض الوهمي للمتصفح
+        // screen.width: العرض الحقيقي لشاشة الجهاز
+        
+        // إذا كان المتصفح يفرض عرضاً أكبر من 900 بكسل، ولكن الشاشة الحقيقية للجهاز صغيرة (موبايل)
+        if (window.innerWidth >= 900 && screen.width <= 768) {
+            document.body.classList.add('force-mobile-mode');
+        } else {
+            document.body.classList.remove('force-mobile-mode');
+        }
     }
-});
 
-// 2. منع اختصارات الكيبورد (F12, Ctrl+Shift+I, Ctrl+U)
-document.addEventListener('keydown', function(e) {
-    if (isOwnerVerified) return; 
-    
-    if (
-        e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
-        (e.ctrlKey && (e.key === 'U' || e.key === 'u'))
-    ) {
-        e.preventDefault();
-        freezeWebsite();
-    }
-});
-
-// 3. كشف الـ Inspect الذكي (للمتصفحات المتقدمة)
-debuggerInterval = setInterval(function() {
-    if (isOwnerVerified || isSiteFrozen) return; 
-    
-    let startTime = performance.now();
-    debugger; 
-    let endTime = performance.now();
-    
-    if (endTime - startTime > 100) {
-        freezeWebsite();
-    }
-}, 1000);
-
-// 4. دالة التجميد وإظهار شاشة المنع
-function freezeWebsite() {
-    if (isOwnerVerified || isSiteFrozen) return;
-    isSiteFrozen = true;
-
-    let overlay = document.getElementById('tamper-lock-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'tamper-lock-overlay';
-        overlay.style = `
-            position: fixed; inset: 0; background: #0f172a; color: #ef4444;
-            z-index: 2147483647; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; direction: rtl;
-        `;
-        overlay.innerHTML = `
-            <div style="background: #1e2937; padding: 35px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 420px; width: 100%; border: 1px solid #374151;">
-                <h1 style="font-size: 2.2rem; margin-top: 0; margin-bottom: 10px; color: #ef4444;">🚫 تم إيقاف النظام 🚫</h1>
-                <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 15px; font-weight: 500;">تم رصد محاولة غير مصرح بها للتلاعب بالنتيجة</h3>
-                <p style="font-size: 14px; color: #94a3b8; margin-bottom: 25px;">يرجى عمل تحديث (Refresh) للصفحة للعودة بشكل طبيعي.</p>
-                
-                <button id="btn-owner-trigger" onclick="showOwnerForm()" style="background: #2563eb; color: white; border: none; padding: 12px 35px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%;">تسجيل دخول المالك</button>
-                
-                <div id="owner-login-box" style="display: none; margin-top: 15px; text-align: right;">
-                    <div style="margin-bottom: 15px;">
-                        <label style="color: #cbd5e1; font-size: 14px; display: block; margin-bottom: 6px;">البريد الإلكتروني:</label>
-                        <input type="email" id="ownerEmail" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4b5563; background: #0f172a; color: white; text-align: left; direction: ltr; outline: none; font-size: 15px;" placeholder="admin@matareya.com">
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="color: #cbd5e1; font-size: 14px; display: block; margin-bottom: 6px;">كلمة السر:</label>
-                        <input type="password" id="ownerPassword" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4b5563; background: #0f172a; color: white; text-align: left; direction: ltr; outline: none; font-size: 15px;" placeholder="••••••••">
-                    </div>
-                    <button onclick="verifyOwnerLogin()" style="width: 100%; background: #22c55e; color: white; border: none; padding: 13px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;">فتح الموقع وتفعيل Inspect 🚀</button>
-                    <div id="owner-error-msg" style="display: none; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: bold; margin-top: 12px; text-align: center;"></div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-    }
-    overlay.style.display = 'flex';
-}
-
-// 5. إظهار صندوق تسجيل الدخول
-function showOwnerForm() {
-    document.getElementById('btn-owner-trigger').style.display = 'none';
-    document.getElementById('owner-login-box').style.display = 'block';
-}
-
-// 6. التحقق من بيانات المالك
-function verifyOwnerLogin() {
-    const email = document.getElementById('ownerEmail').value.trim();
-    const password = document.getElementById('ownerPassword').value.trim();
-    const errorDiv = document.getElementById('owner-error-msg');
-    
-    if (!email || !password) {
-        errorDiv.innerText = "برجاء كتابة البريد وكلمة السر.";
-        errorDiv.style.background = "#fee2e2"; errorDiv.style.color = "#991b1b"; errorDiv.style.display = "block";
-        return;
-    }
-    
-    errorDiv.innerText = "جاري التحقق من السيرفر...";
-    errorDiv.style.background = "#e0f2fe"; errorDiv.style.color = "#0369a1"; errorDiv.style.display = "block";
-    
-    // تأكد من أن SCRIPT_URL معرفة مسبقاً في كودك الأصلي
-    fetch(`${SCRIPT_URL}?action=verifyOwner&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                isOwnerVerified = true;
-                isSiteFrozen = false;
-                clearInterval(debuggerInterval); // 🔴 إيقاف الـ debugger نهائياً حتى يتاح لك فحص العناصر بدون تقطيع
-                document.getElementById('tamper-lock-overlay').style.display = 'none';
-                if (typeof showToast === 'function') showToast("مرحباً بك، تم تفعيل وضع المالك وإلغاء قيود الفحص! 🔓", "#22c55e");
-            } else {
-                errorDiv.innerText = data.error;
-                errorDiv.style.background = "#fee2e2"; errorDiv.style.color = "#991b1b";
-            }
-        })
-        .catch(err => {
-            errorDiv.innerText = "حدث خطأ في الاتصال بقاعدة البيانات.";
-            errorDiv.style.background = "#fee2e2"; errorDiv.style.color = "#991b1b";
-        });
-}
+    // تشغيل الفحص عند تحميل الصفحة وعند محاولة تغيير الحجم
+    window.addEventListener('load', checkDesktopMode);
+    window.addEventListener('resize', checkDesktopMode);
 </script>
 </body>
 
